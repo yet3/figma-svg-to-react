@@ -1,9 +1,12 @@
 # Figma Plugin: SVG to React
 ![GitHub license](https://img.shields.io/github/license/yet3/figma-svg-to-react?style=flat)
 
-Figma plugin that allows you to generate react component from svg
+Figma plugin that allows you to generate react component from svg.
+<br>
+[Plugin page](https://www.figma.com/community/plugin/1139659790182545298)
 
 ![Banner](./public/banner.png)
+
 
 ### How to use
 1. Select element you want to transform
