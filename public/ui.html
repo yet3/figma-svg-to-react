@@ -1,0 +1,238 @@
+<head>
+  <link href="https://unpkg.com/prismjs@v1.20.0/themes/prism.css" rel="stylesheet" />
+  <script src="https://unpkg.com/prismjs@v1.20.0/components/prism-core.min.js"></script>
+  <script src="https://unpkg.com/prismjs@v1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      font-family: 'Roboto', sans-serif;
+      padding: 0.5rem;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1>svg {
+      margin-left: 0.5rem;
+      width: 3rem;
+      height: 3rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    code {
+      font-family: sans-serif;
+    }
+
+    input {
+      font-size: 1rem;
+      outline: none;
+      padding: 0.5rem 0.3rem;
+      border-radius: 0.25rem;
+      border: 1px solid rgb(200, 200, 200);
+    }
+
+    #options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.25rem;
+    }
+
+    #copy-btn {
+      margin-top: 1rem;
+      padding: 0.9rem 0;
+      background-color: #0077ff;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      outline: none;
+      border: none;
+      border-radius: 0.3rem;
+
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>
+    <span>Svg to </span>
+    <svg viewBox="0 0 256 228" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M210.483 73.824C207.759 72.8893 205.011 72.0233 202.243 71.227C202.708 69.327 203.136 67.45 203.516 65.606C209.754 35.325 205.676 10.93 191.747 2.89801C178.392 -4.80199 156.551 3.22701 134.493 22.424C132.319 24.3193 130.193 26.2693 128.118 28.272C126.729 26.9403 125.315 25.6344 123.877 24.355C100.759 3.82901 77.587 -4.82199 63.673 3.23301C50.33 10.957 46.379 33.89 51.995 62.588C52.5537 65.4302 53.1846 68.2578 53.887 71.068C50.607 72 47.442 72.992 44.413 74.048C17.309 83.498 0 98.307 0 113.668C0 129.533 18.582 145.446 46.812 155.095C49.1007 155.874 51.4084 156.596 53.733 157.26C52.978 160.287 52.3078 163.334 51.723 166.398C46.369 194.598 50.55 216.989 63.857 224.664C77.601 232.59 100.669 224.444 123.13 204.809C124.951 203.213 126.733 201.571 128.472 199.886C130.72 202.055 133.027 204.16 135.392 206.2C157.15 224.922 178.638 232.482 191.932 224.786C205.663 216.837 210.126 192.783 204.332 163.518C203.876 161.225 203.364 158.944 202.797 156.676C204.417 156.196 206.007 155.702 207.557 155.188C236.905 145.465 256 129.745 256 113.668C256 98.251 238.132 83.342 210.483 73.824V73.824ZM204.118 144.808C202.718 145.271 201.282 145.718 199.818 146.153C196.578 135.896 192.206 124.99 186.855 113.721C191.961 102.721 196.165 91.954 199.314 81.764C201.933 82.522 204.474 83.321 206.924 84.164C230.614 92.32 245.064 104.377 245.064 113.668C245.064 123.564 229.458 136.411 204.118 144.808V144.808ZM193.604 165.642C196.166 178.582 196.531 190.282 194.834 199.429C193.31 207.648 190.244 213.127 186.452 215.322C178.385 219.992 161.132 213.922 142.525 197.91C140.325 196.013 138.179 194.056 136.088 192.04C143.302 184.151 150.511 174.98 157.547 164.794C169.923 163.696 181.615 161.9 192.218 159.449C192.729 161.502 193.191 163.567 193.604 165.642V165.642ZM87.276 214.515C79.394 217.298 73.116 217.378 69.321 215.19C61.246 210.533 57.889 192.554 62.468 168.438C63.0123 165.588 63.6356 162.754 64.337 159.939C74.823 162.259 86.43 163.927 98.835 164.933C105.919 174.9 113.336 184.061 120.811 192.083C119.222 193.62 117.596 195.118 115.934 196.575C106.001 205.257 96.048 211.417 87.276 214.515V214.515ZM50.35 144.747C37.867 140.48 27.558 134.935 20.492 128.884C14.142 123.447 10.937 118.048 10.937 113.668C10.937 104.346 24.834 92.456 48.013 84.375C50.826 83.395 53.77 82.47 56.825 81.602C60.029 92.022 64.231 102.917 69.302 113.934C64.165 125.114 59.903 136.183 56.668 146.726C54.5461 146.118 52.4395 145.458 50.35 144.747V144.747ZM62.728 60.487C57.917 35.9 61.112 17.353 69.153 12.698C77.717 7.74001 96.655 14.809 116.616 32.533C117.918 33.6914 119.198 34.8732 120.457 36.078C113.019 44.065 105.67 53.158 98.649 63.066C86.609 64.182 75.084 65.974 64.488 68.375C63.8352 65.7612 63.2483 63.1314 62.728 60.488V60.487ZM173.155 87.755C170.652 83.4319 168.057 79.1633 165.37 74.952C173.538 75.985 181.364 77.356 188.713 79.032C186.507 86.104 183.757 93.497 180.52 101.077C178.154 96.5878 175.698 92.1462 173.155 87.755V87.755ZM128.123 43.894C133.167 49.359 138.219 55.46 143.188 62.08C133.108 61.604 123.011 61.602 112.931 62.074C117.905 55.515 123 49.422 128.123 43.894ZM82.802 87.83C80.2903 92.1859 77.8807 96.5997 75.575 101.068C72.391 93.515 69.666 86.088 67.441 78.916C74.745 77.282 82.534 75.946 90.65 74.932C87.9334 79.169 85.3167 83.4692 82.802 87.829V87.83ZM90.883 153.182C82.498 152.246 74.592 150.979 67.29 149.389C69.55 142.089 72.335 134.504 75.588 126.789C77.9028 131.261 80.3225 135.677 82.845 140.035C85.439 144.515 88.125 148.903 90.883 153.182ZM128.425 184.212C123.241 178.62 118.071 172.433 113.022 165.779C117.924 165.971 122.921 166.069 128 166.069C133.218 166.069 138.376 165.952 143.453 165.726C138.468 172.5 133.435 178.696 128.425 184.212ZM180.623 126.395C184.045 134.195 186.929 141.74 189.219 148.915C181.797 150.609 173.783 151.973 165.339 152.986C168.045 148.697 170.665 144.354 173.198 139.96C175.773 135.494 178.249 130.971 180.623 126.395V126.395ZM163.725 134.496C159.847 141.232 155.751 147.841 151.444 154.311C143.642 154.864 135.822 155.138 128 155.134C120.033 155.134 112.284 154.886 104.822 154.402C100.402 147.947 96.2282 141.327 92.309 134.556H92.31C88.4092 127.821 84.7656 120.94 81.387 113.929C84.757 106.916 88.3895 100.032 92.277 93.292L92.276 93.293C96.162 86.5512 100.303 79.9595 104.689 73.532C112.302 72.956 120.109 72.656 127.999 72.656H128C135.926 72.656 143.743 72.959 151.354 73.539C155.696 79.9569 159.81 86.526 163.689 93.234C167.589 99.9592 171.27 106.809 174.725 113.774C171.306 120.81 167.637 127.721 163.725 134.496V134.496ZM186.285 12.372C194.857 17.316 198.191 37.253 192.805 63.398C192.461 65.066 192.075 66.765 191.655 68.488C181.033 66.036 169.5 64.213 157.425 63.08C150.391 53.063 143.102 43.956 135.785 36.072C137.703 34.2235 139.666 32.423 141.673 30.672C160.573 14.225 178.237 7.73101 186.285 12.372V12.372ZM128 90.808C140.625 90.808 150.86 101.043 150.86 113.668C150.86 126.293 140.625 136.528 128 136.528C115.375 136.528 105.14 126.293 105.14 113.668C105.14 101.043 115.375 90.808 128 90.808V90.808Z"
+        fill="#00D8FF" />
+    </svg>
+  </h1>
+
+  <h2>Options</h2>
+  <div id="options">
+    <label>
+      <input type="checkbox" checked="true" id="checkbox-typescript" onchange="updateString()" />
+      Typescript
+    </label>
+    <label>
+      <input type="checkbox" id="checkbox-with-dimensions" onchange="updateString()" />
+      With dimensions
+    </label>
+    <label>
+      <input type="checkbox" id="checkbox-import-react" onchange="updateString()" />
+      Include: import * as React
+    </label>
+    <label>
+      <input type="checkbox" id="checkbox-named-export" checked="true" onchange="updateString()" />
+      Named export
+    </label>
+    <label>
+      <input type="checkbox" id="checkbox-with-props" checked="true" onchange="updateString()" />
+      With props
+    </label>
+    <label>
+      <input type="checkbox" id="checkbox-props-interface" checked="true" onchange="updateString()" />
+      Props interface
+    </label>
+    <label>
+      <input type="checkbox" id="checkbox-with-viewbox" checked="true" onchange="updateString()" />
+      With ViewBox
+    </label>
+  </div>
+  <h2>Component name</h2>
+  <input type="text" value="Svg" id="input-comp-name" oninput="updateString()" />
+  <button id="copy-btn" onclick="handleOnCopy(this)" data-clipboard-target="#code">Copy to clipboard</button>
+
+  <pre><code class="language-tsx" id='code' style="word-break: break-all; word-wrap: break-word;"></code></pre>
+
+  <script>
+    new ClipboardJS('#copy-btn');
+    let baseSvg = '';
+    let baseWidth = '';
+    let baseHeight = '';
+
+    function onRun(data) {
+      baseSvg = data.svg;
+      baseWidth = parseFloat(data.width.toFixed(2));
+      baseHeight = parseFloat(data.height.toFixed(2));
+
+      if (typeof data.options === 'object') {
+        Object.keys(data.options).forEach((checkboxId) => {
+          const checkbox = document.getElementById(checkboxId);
+          if (checkbox) checkbox.checked = data.options[checkboxId];
+        });
+      }
+
+      updateString();
+    }
+
+    function updateString() {
+      const el = document.getElementById('code');
+      if (!el) return;
+
+      const typescript = document.getElementById('checkbox-typescript');
+      const withProps = document.getElementById('checkbox-with-props');
+      const withViewbox = document.getElementById('checkbox-with-viewbox');
+      const withDimensions = document.getElementById('checkbox-with-dimensions');
+      const propsInterface = document.getElementById('checkbox-props-interface');
+      const namedExport = document.getElementById('checkbox-named-export');
+      const importReact = document.getElementById('checkbox-import-react');
+
+      let text = '';
+      let svg = baseSvg;
+      let compName = document.getElementById('input-comp-name').value || 'Svg';
+
+      if (importReact.checked) text = "import * as React from 'react';\n\n";
+
+      if (withProps.checked) {
+        svg = svg.replace(/">/, '" {...props}>');
+
+        if (typescript.checked) {
+          let prefix = '';
+          if (importReact.checked) prefix = 'React.';
+          else text = "import { SVGProps } from 'react'\n\n";
+
+          if (propsInterface.checked) {
+            text += `interface Props extends ${prefix}SVGProps<SVGSVGElement> {\n`;
+            text += '\t\n';
+            text += '}\n\n';
+            text += `const ${compName} = (props: Props) => {\n`;
+          } else {
+            text += `const ${compName} = (props: ${prefix}SVGProps<SVGSVGElement>) => {\n`;
+          }
+        } else text += `const ${compName} = (props) => {\n`;
+      } else text += `const ${compName} = () => {\n`;
+
+      if (withDimensions.checked) {
+        svg = svg.replace(/width="\w*"/, `width={${baseWidth}}`);
+        svg = svg.replace(/height="\w*"/, `height={${baseHeight}}`);
+      } else {
+        svg = svg.replace(/width="\w*"/, `width="1rem"`);
+        svg = svg.replace(/height="\w*"/, `height="1rem"`);
+      }
+
+      if (!withViewbox.checked) svg = svg.replace(/viewBox="(.*?)" /, '');
+
+      text += '\treturn (\n';
+      text += `\t\t${svg.replaceAll('\n', '')}\n`;
+      text += '\t)\n';
+      text += '}\n';
+
+      if (namedExport.checked) {
+        text += `\nexport { ${compName} };`;
+      } else text += `\nexport default ${compName};`;
+
+      el.textContent = text;
+      window.Prism.highlightAll();
+
+      parent.postMessage(
+        {
+          pluginMessage: {
+            type: 'saveOptions',
+            options: {
+              'checkbox-typescript': typescript.checked,
+              'checkbox-with-viewbox': withViewbox.checked,
+              'checkbox-with-dimensions': withDimensions.checked,
+              'checkbox-with-props': withProps.checked,
+              'checkbox-import-react': importReact.checked,
+              'checkbox-props-interface': propsInterface.checked,
+              'checkbox-named-export': namedExport.checked,
+            },
+          },
+        },
+        '*'
+      );
+    }
+
+    function handleOnCopy(e) {
+      parent.postMessage({pluginMessage: {type: 'onCopy'}}, '*');
+    }
+
+    onmessage = (event) => {
+      const data = JSON.parse(event.data.pluginMessage);
+      if (!data) return;
+      switch (data.type) {
+        case 'run': {
+          onRun(data);
+          break;
+        }
+      }
+    };
+  </script>
+</body>

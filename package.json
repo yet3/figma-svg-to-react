@@ -1,0 +1,33 @@
+{
+  "name": "@yet3/figma-svg-to-react",
+  "version": "1.0.0",
+  "author": "yet3",
+  "description": "Figma plugin that allows you to generate react component from svg",
+  "license": "MIT",
+  "main": "./dist/code.js",
+  "scripts": {
+    "build": "rm -rf ./dist && tsc -p tsconfig.json",
+    "dev": "yarn build -- --watch",
+    "format": "prettier --write \"./src/**/*.{ts,tsx,js,jsx}\""
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "*",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "typescript": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yet3/figma-svg-to-react.git"
+  },
+  "keywords": [
+    "figma",
+    "react",
+    "svg",
+    "typescript"
+  ],
+  "bugs": {
+    "url": "https://github.com/yet3/figma-svg-to-react/issues"
+  },
+  "homepage": "https://github.com/yet3/figma-svg-to-react#readme"
+}
