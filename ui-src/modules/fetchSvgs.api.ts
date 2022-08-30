@@ -9,7 +9,8 @@ export const fetchSvgs = async (
     Object.keys(opts).forEach((key) => {
       optionsToSend[key as OptionsKeys] = opts[key as OptionsKeys].value;
     });
-    const res = await fetch("http://localhost:3000/", {
+    
+    const res = await fetch("https://figma-svg-to-react-api.vercel.app/", {
       method: "POST",
       headers: {
         Accept: "application/json",
