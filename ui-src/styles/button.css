@@ -1,0 +1,8 @@
+@layer components {
+  .button {
+    @apply px-4 py-2 bg-blue-400/20 text-blue-800 rounded-sm;
+    @apply hover:bg-blue-300/20 hover:text-blue-700 hover:cursor-pointer;
+    @apply active:bg-blue-500/20 active:text-blue-800;
+    @apply disabled:bg-gray-300/20 disabled:text-gray-500 cursor-auto;
+  }
+}

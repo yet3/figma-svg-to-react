@@ -1,0 +1,13 @@
+@layer components {
+  .checkbox-label {
+    @apply grid grid-flow-col justify-start items-center gap-2;
+    @apply hover:cursor-pointer;
+  }
+
+  .checkbox-label-disabled {
+    @apply text-gray-400;
+  }
+
+  .checkbox {
+  }
+}

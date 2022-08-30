@@ -1,0 +1,8 @@
+@layer components {
+  .input-label {
+  }
+
+  .input {
+    @apply p-1 w-full border border-gray-300 rounded-sm;
+  }
+}

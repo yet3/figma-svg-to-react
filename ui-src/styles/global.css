@@ -1,0 +1,16 @@
+@import './button.css';
+@import './checkbox.css';
+@import './input.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply text-gray-800 p-0 m-0;
+}
+
+body {
+  @apply flex flex-col p-2;
+  font-family: "Roboto", sans-serif;
+}

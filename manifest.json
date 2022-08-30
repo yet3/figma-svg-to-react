@@ -1,0 +1,9 @@
+{
+  "name": "SVG to React",
+  "id": "1139659790182545298",
+  "api": "1.0.0",
+  "editorType": ["figma"],
+  "permissions": [],
+  "main": "dist/code.js",
+  "ui": "dist/index.html"
+}
