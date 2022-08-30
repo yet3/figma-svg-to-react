@@ -1,8 +1,8 @@
 {
   "name": "@yet3/figma-svg-to-react",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "yet3",
-  "description": "Figma plugin that allows you to generate react component from svg",
+  "description": "Figma plugin that allows you to generate react components from selected nodes",
   "license": "MIT",
   "scripts": {
     "test": "npm run tsc && npm run build",
