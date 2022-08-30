@@ -4,6 +4,10 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const { transform } = require("@svgr/core");
 
+require("@svgr/plugin-svgo")
+require("@svgr/plugin-jsx")
+require("@svgr/plugin-prettier")
+
 const app = express();
 app.use(helmet());
 app.use(cors());
