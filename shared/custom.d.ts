@@ -1,15 +1,7 @@
-export type OptionsKeys =
-  | "includeImportReact"
-  | "asIcon"
-  | "forReactNative"
-  | "forwardRef"
-  | "propsInterface"
-  | "namedExport"
-  | "typescript"
-  | "withProps"
-  | "withViewbox";
+import type { IOptions } from '../shared/schemas/options.schema';
+import { ISvgNode } from './schemas/svg.schema';
 
-export type IOptions = { [key in OptionsKeys]: Option };
+export type OptionsKeys = keyof IOptions;
 export type API_Options = { [key in OptionsKeys]: boolean };
 
 export interface Option {
@@ -17,6 +9,7 @@ export interface Option {
   value: boolean;
   onlyIf?: Array<OptionsKeys>;
 }
+export type IOptionsWithDetails = { [key in OptionsKeys]: Option };
 
 export interface SvgChangable {
   compName?: string;
@@ -25,40 +18,18 @@ export interface SvgChangable {
 
 export interface ISvg {
   id: string;
-  originalBytes: number[]
+  originalBytes: number[];
   data: string;
   nodeName: string;
   compName: string;
   fileName: string;
 }
 
-export interface ExportSvg {
-  id: string;
-  bytes: number[];
-  nodeName: string;
-}
-
-export interface API_Request {
-  svgs: ExportSvg[];
-  options: {
-    includeImportReact: boolean;
-    asIcon: boolean;
-    forReactNative: boolean;
-    forwardRef: boolean;
-    propsInterface: boolean;
-    namedExport: boolean;
-    typescript: boolean;
-    withProps: boolean;
-    withViewbox: boolean;
-  };
-}
-
-export interface API_Response {
-  svgs: ISvg[];
-  errors?: string;
+export interface IExportSvg extends ISvgNode {
+ nodeName: string; 
 }
 
 export type Actions =
-  | { type: "notify"; msg: string }
-  | { type: "closePlugin" }
-  | { type: "saveOptions"; options: { [key in OptionsKeys]?: boolean } };
+  | { type: 'notify'; msg: string }
+  | { type: 'closePlugin' }
+  | { type: 'saveOptions'; options: { [key in OptionsKeys]?: boolean } };

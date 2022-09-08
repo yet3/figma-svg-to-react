@@ -1,6 +1,6 @@
-import { IOptions } from "./custom";
+import { IOptionsWithDetails } from "./custom";
 
-export const OPTIONS: IOptions = {
+export const OPTIONS: IOptionsWithDetails = {
   typescript: { label: "Typescript", value: true },
   withProps: { label: "With props", value: true },
   propsInterface: {

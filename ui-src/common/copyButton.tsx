@@ -3,9 +3,10 @@ import { Button } from "./button";
 
 interface Props {
   onCopy: () => Promise<boolean> | boolean;
+  disabled?: boolean
 }
 
-const CopyButton = ({ onCopy }: Props) => {
+const CopyButton = ({ onCopy, disabled }: Props) => {
   const timeout = useRef<null | NodeJS.Timeout>(null);
   const [hasCopied, setHasCopied] = useState(false);
 
@@ -34,7 +35,7 @@ const CopyButton = ({ onCopy }: Props) => {
 
   return (
     <Button
-      disabled={hasCopied}
+      disabled={hasCopied || disabled}
       className={
         hasCopied ? "disabled:bg-green-300/20 disabled:text-green-800" : ""
       }

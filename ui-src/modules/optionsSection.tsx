@@ -1,11 +1,11 @@
 import { SetStateAction } from "react";
-import { IOptions, OptionsKeys } from "../../shared/custom";
+import { IOptionsWithDetails, OptionsKeys } from "../../shared/custom";
 import { Checkbox } from "../common/checkbox";
 import { Section } from "../common/section";
 
 interface Props {
-  options: IOptions;
-  setOptions: (options: SetStateAction<IOptions>) => void;
+  options: IOptionsWithDetails;
+  setOptions: (options: SetStateAction<IOptionsWithDetails>) => void;
 }
 
 const OptionsSecition = ({ options, setOptions }: Props) => {

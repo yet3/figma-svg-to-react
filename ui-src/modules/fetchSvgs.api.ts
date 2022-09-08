@@ -1,30 +1,32 @@
-import { API_Options, API_Request, API_Response, ExportSvg, IOptions, ISvg, OptionsKeys } from "../../shared/custom";
+import { IOptionsWithDetails, OptionsKeys } from '../../shared/custom';
+import { IOptions } from '../../shared/schemas/options.schema';
+import { ISvgNode } from '../../shared/schemas/svg.schema';
+import { IApiReqBody, IApiReply } from '../../shared/schemas/api.schema';
 
-export const fetchSvgs = async (
-  _svgs: ExportSvg[],
-  opts: IOptions
-): Promise<ISvg[]> => {
+const URL = process.env.IS_DEV ? 'http://localhost:3000/' : 'https://figma-svg-to-react-api.vercel.app/';
+export const fetchSvgs = async (_svgs: ISvgNode[], opts: IOptionsWithDetails): Promise<IApiReply> => {
   try {
-    const optionsToSend: Partial<API_Options> = {};
+    const optionsToSend: Partial<IOptions> = {};
     Object.keys(opts).forEach((key) => {
       optionsToSend[key as OptionsKeys] = opts[key as OptionsKeys].value;
     });
-    
-    const res = await fetch("https://figma-svg-to-react-api.vercel.app/", {
-      method: "POST",
+
+    const res = await fetch(URL, {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         svgs: _svgs,
         options: optionsToSend,
-      } as API_Request),
+      } as IApiReqBody),
     });
-    const data = (await res.json()) as API_Response;
-    return data.svgs;
+    return (await res.json()) as IApiReply;
   } catch (e) {
     console.log(e);
-    return [];
+    return {
+      errors: e.toString(),
+    };
   }
 };

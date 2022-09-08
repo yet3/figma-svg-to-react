@@ -1,8 +1,5 @@
 @layer components {
-  .input-label {
-  }
-
   .input {
-    @apply p-1 w-full border border-gray-300 rounded-sm;
+    @apply p-1 w-full border border-gray-300 rounded-sm outline-none active:border-blue-400 focus:border-blue-400;
   }
 }

@@ -1,7 +1,7 @@
 import { ISvg } from "../../shared/custom";
 
 const svgToString = ({ data, compName }: ISvg) => {
-  return data.replaceAll("COMP_NAME", compName);
+  return data.replace(/COMP_NAME/gm, compName);
 };
 
 export { svgToString };

@@ -4,9 +4,10 @@
     "target": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist",
+    "outDir": "./dist",
     "allowJs": true,
     "lib": ["dom", "es6"]
   },
+  "include": ["../shared/schemas/**/*.ts", "../shared/custom.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
