@@ -4,8 +4,8 @@
   "author": "anty3",
   "license": "MIT",
   "scripts": {
-    "local:build": "rm -rf ./dist && tsc -p ./tsconfig.json",
-    "local:start": "yarn local:build && fastify start -l info -P ./dist/src/function.js",
+    "build": "rm -rf ./dist && tsc -p ./tsconfig.json",
+    "local:start": "yarn build && fastify start -l info -P ./dist/src/function.js",
     "local:dev": "nodemon -e ts -w './src' -x 'yarn local:start'"
   },
   "dependencies": {
