@@ -11,7 +11,7 @@
     "tsc:main": "tsc --noEmit -p plugin-src",
     "tsc:ui": "tsc --noEmit -p ui-src",
     "tsc:watch": "concurrently -n widget,iframe \"npm run tsc:main -- --watch --preserveWatchOutput\" \"npm run tsc:ui -- --watch --preserveWatchOutput\"",
-    "build": "cross-env IS_DEV=DEV npm run build:ui && npm run build:main -- --minify && cd ./api && yarn build",
+    "build": "cross-env IS_DEV=false npm run build:ui && npm run build:main -- --minify && cd ./api && yarn build",
     "build:main": "esbuild plugin-src/code.ts --bundle --outfile=dist/code.js",
     "build:ui": "npx vite build --minify esbuild --emptyOutDir=false",
     "build:watch": "concurrently -n widget,iframe \"cross-env IS_DEV=true npm run build:main -- --watch\" \"cross-env IS_DEV=true npm run build:ui -- --watch\"",
