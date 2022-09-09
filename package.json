@@ -11,11 +11,11 @@
     "tsc:main": "tsc --noEmit -p plugin-src",
     "tsc:ui": "tsc --noEmit -p ui-src",
     "tsc:watch": "concurrently -n widget,iframe \"npm run tsc:main -- --watch --preserveWatchOutput\" \"npm run tsc:ui -- --watch --preserveWatchOutput\"",
-    "build": "cross-env IS_DEV=false npm run build:ui && npm run build:main -- --minify && cd ./api && yarn build",
+    "build": "cross-env IS_DEV=false npm run build:ui && npm run build:main -- --minify && cd ./serverless && yarn local:build",
     "build:main": "esbuild plugin-src/code.ts --bundle --outfile=dist/code.js",
     "build:ui": "npx vite build --minify esbuild --emptyOutDir=false",
     "build:watch": "concurrently -n widget,iframe \"cross-env IS_DEV=true npm run build:main -- --watch\" \"cross-env IS_DEV=true npm run build:ui -- --watch\"",
-    "dev": "concurrently -n tsc,build,vite 'npm:tsc:watch' 'npm:build:watch' 'vite' 'cd ./api && yarn dev'"
+    "dev": "concurrently -n tsc,build,vite 'npm:tsc:watch' 'npm:build:watch' 'vite' 'cd ./serverless && yarn local:dev'"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.24.38",
