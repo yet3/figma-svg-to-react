@@ -283,6 +283,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@sinclair/typebox@^0.24.39":
+  version "0.24.39"
+  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.39.tgz#21d0c56c295a00e391e20a88a48c11d4a1210ac5"
+  integrity sha512-GqtkxoAjhTzoMwFg/JYRl+1+miOoyvp6mkLpbMSd2fIQak2KvY00ndlXxxkDBpuCPYkorZeEZf0LEQn9V9NRVQ==
+
 "@svgr/babel-plugin-add-jsx-attribute@^6.3.1":
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-6.3.1.tgz#b9a5d84902be75a05ede92e70b338d28ab63fa74"
