@@ -1,7 +1,7 @@
 import { IOptionsWithDetails, OptionsKeys } from '../../shared/custom';
-import { IOptions } from '../../api/schemas/options.schema';
-import { ISvgNode } from '../../api/schemas/svg.schema';
-import { IApiReqBody, IApiReply } from '../../api/schemas/api.schema';
+import { IOptions } from '../../serverless/schemas/options.schema';
+import { ISvgNode } from '../../serverless/schemas/svg.schema';
+import { IApiReqBody, IApiReply } from '../../serverless/schemas/api.schema';
 
 console.log('IS_DEV', process.env.IS_DEV === 'true')
 const URL = process.env.IS_DEV === 'true' ? 'http://localhost:3000/' : 'https://figma-svg-to-react-api.vercel.app/';

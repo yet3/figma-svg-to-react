@@ -1,5 +1,5 @@
-import { IOptions } from '../../api/schemas/options.schema';
-import { ISvgNode } from '../../api/schemas/svg.schema';
+import { IOptions } from '../../serverless/schemas/options.schema';
+import { ISvgNode } from '../../serverless/schemas/svg.schema';
 
 import { transform } from '@svgr/core';
 import { SvgrTemplate } from './template';

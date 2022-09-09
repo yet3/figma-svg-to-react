@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "./dist/src/function.js" 
-    }
-  ]
-}

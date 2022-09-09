@@ -9,7 +9,7 @@ const app = Fastify({
   logger: false,
 })
 
-app.register(import('./function'), {
+app.register(import('../src/function'), {
   prefix: '/',
 });
 

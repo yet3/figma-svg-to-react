@@ -1,5 +1,5 @@
-import type { IOptions } from '../api/schemas/options.schema';
-import { ISvgNode } from '../api/schemas/svg.schema';
+import type { IOptions } from '../serverless/schemas/options.schema';
+import { ISvgNode } from '../serverless/schemas/svg.schema';
 
 export type OptionsKeys = keyof IOptions;
 export type API_Options = { [key in OptionsKeys]: boolean };
