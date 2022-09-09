@@ -6,7 +6,7 @@ import {
   ApiReqBodySchema,
   IApiReply,
   IApiReqBody,
-} from '../../shared/schemas/api.schema';
+} from '../schemas/api.schema';
 import { transformSvg } from './transformSvg';
 import cors from '@fastify/cors';
 

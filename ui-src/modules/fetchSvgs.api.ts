@@ -1,7 +1,7 @@
 import { IOptionsWithDetails, OptionsKeys } from '../../shared/custom';
-import { IOptions } from '../../shared/schemas/options.schema';
-import { ISvgNode } from '../../shared/schemas/svg.schema';
-import { IApiReqBody, IApiReply } from '../../shared/schemas/api.schema';
+import { IOptions } from '../../api/schemas/options.schema';
+import { ISvgNode } from '../../api/schemas/svg.schema';
+import { IApiReqBody, IApiReply } from '../../api/schemas/api.schema';
 
 const URL = process.env.IS_DEV ? 'http://localhost:3000/' : 'https://figma-svg-to-react-api.vercel.app/';
 export const fetchSvgs = async (_svgs: ISvgNode[], opts: IOptionsWithDetails): Promise<IApiReply> => {

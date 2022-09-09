@@ -8,6 +8,5 @@
     "allowJs": true,
     "lib": ["dom", "es6"]
   },
-  "include": ["../shared/schemas/**/*.ts", "../shared/custom.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

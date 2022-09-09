@@ -1,5 +1,5 @@
-import type { IOptions } from '../shared/schemas/options.schema';
-import { ISvgNode } from './schemas/svg.schema';
+import type { IOptions } from '../api/schemas/options.schema';
+import { ISvgNode } from '../api/schemas/svg.schema';
 
 export type OptionsKeys = keyof IOptions;
 export type API_Options = { [key in OptionsKeys]: boolean };
