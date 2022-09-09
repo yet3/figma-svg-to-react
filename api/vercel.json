@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "./src/serverless.ts"
+      "source": "/",
+      "destination": "./dist/src/function.js" 
     }
   ]
 }
