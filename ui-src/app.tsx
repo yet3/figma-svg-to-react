@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { IExportSvg, IOptionsWithDetails, ISvg, OptionsKeys, SvgChangable } from '../shared/custom';
-import { OptionsSecition } from './modules/optionsSection';
+import { IExportSvg, IOptionsWithDetails, ISvg, OptionsKeys, SvgEditable } from '../shared/custom';
+import { OptionsSection } from './modules/optionsSection';
 import { Button } from './common/button';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
@@ -9,7 +9,7 @@ import { SvgSection } from './modules/svgSection';
 import { toCamelCase } from './utils/toCamelCase.util'
 import { toCompName } from './utils/toCompName.util';
 import { saveAsFiles } from './utils/saveAsFiles.util';
-import { fetchSvgs } from './modules/fetchSvgs.api';
+import { fetchSvgs } from './api/fetchSvgs.api';
 
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 
@@ -89,7 +89,7 @@ const App = () => {
     parseSvgs();
   }, [options]);
 
-  const handleChangeSvg = (svgId: string, d: SvgChangable) => {
+  const handleChangeSvg = (svgId: string, d: SvgEditable) => {
     const svgIndex = svgs.findIndex((s) => s.id === svgId);
     if (svgIndex < 0) return;
 
@@ -120,7 +120,7 @@ const App = () => {
             </button>
           </p>
         )}
-        <OptionsSecition options={options} setOptions={setOptions} />
+        <OptionsSection options={options} setOptions={setOptions} />
         <Button
           content={`Save all as files (${svgs.length})`}
           disabled={loading}

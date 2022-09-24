@@ -11,7 +11,7 @@ export interface Option {
 }
 export type IOptionsWithDetails = { [key in OptionsKeys]: Option };
 
-export interface SvgChangable {
+export interface SvgEditable {
   compName?: string;
   fileName?: string;
 }

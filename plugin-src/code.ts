@@ -2,6 +2,8 @@ import { getOptions } from './getOptions.util';
 import { OptionsKeys, Actions, IExportSvg } from '../shared/custom';
 
 figma.on('run', async () => {
+  const loadingNotification = figma.notify('React to SVG: Starting...', { timeout: 60000 });
+
   const nodes = figma.currentPage.selection;
 
   if (nodes.length === 0) {
@@ -43,8 +45,10 @@ figma.on('run', async () => {
         options: await getOptions(),
       })
     );
+    loadingNotification.cancel();
   } catch (e) {
     console.log(e);
+    loadingNotification.cancel();
     figma.notify('There was an error during export!');
     figma.closePlugin();
   }

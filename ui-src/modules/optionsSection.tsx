@@ -8,7 +8,7 @@ interface Props {
   setOptions: (options: SetStateAction<IOptionsWithDetails>) => void;
 }
 
-const OptionsSecition = ({ options, setOptions }: Props) => {
+const OptionsSection = ({ options, setOptions }: Props) => {
   const handleOptionChange = (key: OptionsKeys, value: boolean) => {
     setOptions((p) => {
       const cloned = { ...p };
@@ -51,4 +51,4 @@ const OptionsSecition = ({ options, setOptions }: Props) => {
   );
 };
 
-export { OptionsSecition };
+export { OptionsSection };

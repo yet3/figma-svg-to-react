@@ -20,22 +20,17 @@ export const ApiReply500Schema = T.Object({
   errors: T.String(),
 });
 
-export const ApiReplySchema = T.Object({
-  200: ApiReply200Schema,
-  500: ApiReply500Schema,
-});
-
 export type IApiReqBody = Static<typeof ApiReqBodySchema>;
 export type IApiReplySvg = Static<typeof ApiReplySvgSchema>;
 
 export interface IApiReply200 {
-  svgs: Static<typeof ApiReplySchema>[200]['svgs'];
+  svgs: Static<typeof ApiReply200Schema>['svgs'];
   errors?: never;
 }
 
 export interface IApiReply500 {
   svgs?: never;
-  errors: Static<typeof ApiReplySchema>[500]['errors'];
+  errors: Static<typeof ApiReply500Schema>['errors'];
 }
 
 export type IApiReply = IApiReply200 | IApiReply500;

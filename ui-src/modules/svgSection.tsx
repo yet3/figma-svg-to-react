@@ -1,4 +1,4 @@
-import { IOptionsWithDetails, ISvg, SvgChangable } from '../../shared/custom';
+import { IOptionsWithDetails, ISvg, SvgEditable } from '../../shared/custom';
 import { Section } from '../common/section';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
@@ -16,7 +16,7 @@ import clsx from 'clsx';
 interface Props {
   svg: ISvg;
   options: IOptionsWithDetails;
-  handleChangeSvg: (d: SvgChangable) => void;
+  handleChangeSvg: (d: SvgEditable) => void;
 
   isLoading?: boolean;
 }
@@ -28,8 +28,14 @@ const SvgSection = ({ svg, options, handleChangeSvg, isLoading }: Props) => {
   const codeRef = useRef<HTMLElement | null>(null);
 
   const handleChangeCompName = (e: ChangeEvent<HTMLInputElement>) => {
+    if (isFileNameTouched) handleChangeSvg({ compName: e.target.value });
+    else {
+      const fileName = toCamelCase(e.target.value);
+      handleChangeSvg({ compName: e.target.value, fileName });
+      setFileName(fileName);
+    }
+
     setCompName(e.target.value);
-    handleChangeSvg({ compName: e.target.value });
   };
 
   const handleChangeFileName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +50,7 @@ const SvgSection = ({ svg, options, handleChangeSvg, isLoading }: Props) => {
         <Input label="Component name" value={compName} onChange={handleChangeCompName} />
         <Input
           label="File name"
-          value={isFileNameTouched ? fileName : toCamelCase(compName)}
+          value={fileName}
           className={clsx(!isFileNameTouched && 'border-yellow-300')}
           onChange={handleChangeFileName}
           sufix={`.${options.typescript.value ? 't' : 'j'}sx`}
