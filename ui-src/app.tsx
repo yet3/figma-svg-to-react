@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { IExportSvg, IOptionsWithDetails, ISvg, OptionsKeys, SvgEditable } from '../shared/custom';
 import { OptionsSection } from './modules/optionsSection';
 import { Button } from './common/button';
@@ -6,7 +6,7 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import { OPTIONS } from '../shared/options.const';
 import { SvgSection } from './modules/svgSection';
-import { toCamelCase } from './utils/toCamelCase.util'
+import { toCamelCase } from './utils/toCamelCase.util';
 import { toCompName } from './utils/toCompName.util';
 import { saveAsFiles } from './utils/saveAsFiles.util';
 import { fetchSvgs } from './api/fetchSvgs.api';
@@ -70,7 +70,7 @@ const App = () => {
       setSvgs((p) => {
         const tmp = p.slice();
 
-        res.svgs.forEach((newSvg) => {
+        res.svgs?.forEach((newSvg) => {
           const ogIndex = tmp.findIndex((s) => s.id === newSvg.id);
           if (ogIndex >= 0) {
             tmp[ogIndex] = {
