@@ -3,7 +3,7 @@ import { Section } from '../common/section';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
 import { svgToString } from '../utils/svgToString.util';
-import { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { Button } from '../common/button';
 import { toCamelCase } from '../utils/toCamelCase.util';
 import { saveAsFiles } from '../utils/saveAsFiles.util';

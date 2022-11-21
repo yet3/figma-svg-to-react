@@ -13,6 +13,9 @@ export const OPTIONS: IOptionsWithDetails = {
   asIcon: { label: "Icon (width, height = 1em)", value: false },
   namedExport: { label: "Named export", value: true },
   forwardRef: { label: "ForwardRef", value: false },
+  removeAllFill: { label: 'Remove all "fill" attributes', value: false },
+  removeAllStroke: { label: 'Remove all "stroke" attributes', value: false },
+  addClassNamesBasedOnElementsNames: { label: "Add classNames based on elements' names", value: false },
   forReactNative: { label: "For react native", value: false },
 };
 
