@@ -10,6 +10,10 @@ export const OptionsSchema = T.Object({
   namedExport: T.Boolean(),
   withProps: T.Boolean(),
   withViewbox: T.Boolean(),
+  removeAllFill: T.Boolean(),
+  removeAllStroke: T.Boolean(),
+  addClassNames: T.Boolean(),
+  makeClassNamesExact: T.Boolean(),
 });
 
 export type IOptions = Static<typeof OptionsSchema>;

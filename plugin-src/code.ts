@@ -19,9 +19,8 @@ figma.on('run', async () => {
       promises.push(
         new Promise(async (resolve, reject) => {
           node
-            .exportAsync({ format: 'SVG' })
+            .exportAsync({ format: 'SVG', svgIdAttribute: true })
             .then((bytes) => {
-              console.log([...bytes]);
               resolve({
                 id: Math.random().toString(),
                 bytes: [...bytes],
