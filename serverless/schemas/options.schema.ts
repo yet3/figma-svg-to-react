@@ -12,7 +12,8 @@ export const OptionsSchema = T.Object({
   withViewbox: T.Boolean(),
   removeAllFill: T.Boolean(),
   removeAllStroke: T.Boolean(),
-  addClassNamesBasedOnElementsNames: T.Boolean(),
+  addClassNames: T.Boolean(),
+  makeClassNamesExact: T.Boolean(),
 });
 
 export type IOptions = Static<typeof OptionsSchema>;

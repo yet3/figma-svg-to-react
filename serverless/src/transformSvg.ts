@@ -7,46 +7,8 @@ import { SvgrTemplate } from './template';
 import '@svgr/plugin-svgo';
 import '@svgr/plugin-jsx';
 import '@svgr/plugin-prettier';
+import { handleClassNames } from './handleClassNames.svgo';
 
-// @ts-ignore
-
-const escapeClassName = (className: string) => {
-  return className;
-};
-
-function addClassNamesBasedOnIds(root: any, onlyRemoveFirstGroup = false) {
-  let baseClassName = '';
-  const rootEl = root.children[0];
-  if (rootEl.isElem('svg')) {
-    if (rootEl.children.length === 1) {
-      const el = rootEl.children[0];
-      if (el.hasAttr('id') && el.isElem('g')) {
-        baseClassName = escapeClassName(el.attributes.id);
-        if (!onlyRemoveFirstGroup) rootEl.attributes.className = baseClassName;
-        rootEl.children = el.children;
-      }
-    }
-  }
-  if (onlyRemoveFirstGroup) return root;
-
-  const goThroughChildren = (node: any, accCN = '') => {
-    if (node.hasAttr('id')) {
-      accCN += '__' + escapeClassName(node.attributes.id);
-      node.attributes.className = accCN;
-      delete node.attributes.id;
-    }
-
-    if (node.children && node.children.length > 0) {
-      node.children.forEach((child: any) => {
-        goThroughChildren(child, accCN);
-      });
-    }
-  };
-
-  goThroughChildren(rootEl, baseClassName);
-
-  return root;
-}
 
 const transformSvg = async (svg: ISvgNode, options: IOptions): Promise<string | null> => {
   const {
@@ -61,7 +23,8 @@ const transformSvg = async (svg: ISvgNode, options: IOptions): Promise<string | 
     typescript,
     forwardRef,
     propsInterface,
-    addClassNamesBasedOnElementsNames,
+    addClassNames,
+    makeClassNamesExact,
   } = options;
 
   let data = '';
@@ -70,7 +33,7 @@ const transformSvg = async (svg: ISvgNode, options: IOptions): Promise<string | 
     const attrsToRemove: string[] = [];
     if (removeAllFill) attrsToRemove.push('fill');
     if (removeAllStroke) attrsToRemove.push('stroke');
-    if (!addClassNamesBasedOnElementsNames) attrsToRemove.push('id');
+    if (!addClassNames) attrsToRemove.push('id');
 
     data = await transform(
       code,
@@ -93,9 +56,9 @@ const transformSvg = async (svg: ISvgNode, options: IOptions): Promise<string | 
               active: !withViewbox,
             },
             {
-              name: 'addClassNamesBasedOnIds',
+              name: 'handleClassNames',
               type: 'full',
-              fn: (root: any) => addClassNamesBasedOnIds(root, !addClassNamesBasedOnElementsNames),
+              fn: (root: any) => handleClassNames(root, { onlyRemoveFirstGroup: !addClassNames, makeExactClassNames: makeClassNamesExact }),
             },
             {
               name: 'removeAttrs',
@@ -162,14 +125,13 @@ const transformSvg = async (svg: ISvgNode, options: IOptions): Promise<string | 
       split.splice(i, 0, '');
 
       if (interfacesStr) {
-        split.splice(i, 0, '\n' +interfacesStr);
+        split.splice(i, 0, '\n' + interfacesStr);
       }
     }
 
     if (line === ');') {
-      split.splice(i+1, 0, '');
+      split.splice(i + 1, 0, '');
     }
-    
   }
 
   return split.join('\n');
