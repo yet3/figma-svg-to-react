@@ -11,7 +11,7 @@ export default async function (instance: FastifyInstance, opts: FastifyServerOpt
 
   instance.post<{ Body: IApiReqBody; Reply: IApiReply }>(
     '/',
-    { schema: { body: ApiReqBodySchema, response: { 200: ApiReply200Schema, 500: ApiReply500Schema } } },
+    { bodyLimit: 10 * 1024 * 1024, schema: { body: ApiReqBodySchema, response: { 200: ApiReply200Schema, 500: ApiReply500Schema } } },
     async (req, reply) => {
       const { svgs, options } = req.body;
 
