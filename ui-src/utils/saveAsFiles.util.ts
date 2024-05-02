@@ -18,9 +18,16 @@ export const saveAsFiles = (svgs: ISvg[], options: IOptionsWithDetails) => {
   return new Promise<void>((resolve) => {
     let zip = new JSZip();
 
+    const svgUsedNames = new Map<string, number>()
     for (let svg of svgs) {
       const blob = new Blob([svgToString(svg)]);
-      zip.file(`${svg.fileName}${extension}`, blob, {
+      let fileName = svg.fileName;
+      const usedTimes = svgUsedNames.get(fileName) ?? 0
+      if (usedTimes > 0) {
+        fileName = `${fileName} (${usedTimes})`
+      } 
+      svgUsedNames.set(svg.fileName, usedTimes + 1)
+      zip.file(`${fileName}${extension}`, blob, {
         base64: true,
       });
     }
