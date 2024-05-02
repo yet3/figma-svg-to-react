@@ -5,5 +5,9 @@
   "editorType": ["figma"],
   "permissions": [],
   "main": "dist/code.js",
-  "ui": "dist/index.html"
+  "ui": "dist/index.html",
+  "networkAccess": {
+    "allowedDomains": ["https://figma-svg-to-react-api.vercel.app/"],
+    "devAllowedDomains": ["*"]
+  }
 }
