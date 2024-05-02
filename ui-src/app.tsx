@@ -129,7 +129,6 @@ const App = () => {
           }}
         />
         <ul className="grid gap-4 relative">
-          {/* {loading && <li className="w-full h-full bg-black/75 absolute top-0 left-0" />} */}
           {nodes}
         </ul>
       </main>
