@@ -1,65 +1,22 @@
 {
-  "name": "@yet3/figma-svg-to-react",
-  "version": "3.0.1",
-  "author": "yet3",
-  "description": "Figma plugin that allows you to generate react components from selected nodes",
-  "license": "MIT",
+  "name": "figma-svg-to-react",
+  "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "test": "npm run tsc && npm run build",
-    "format": "prettier --write .",
-    "tsc": "npm run tsc:main && npm run tsc:ui",
-    "tsc:main": "tsc --noEmit -p plugin-src",
-    "tsc:ui": "tsc --noEmit -p ui-src",
-    "tsc:watch": "concurrently -n widget,iframe \"npm run tsc:main -- --watch --preserveWatchOutput\" \"npm run tsc:ui -- --watch --preserveWatchOutput\"",
-    "build": "cross-env IS_DEV=false npm run build:ui && npm run build:main -- --minify && cd ./serverless && yarn local:build",
-    "build:main": "esbuild plugin-src/code.ts --bundle --outfile=dist/code.js",
-    "build:ui": "npx vite build --minify esbuild --emptyOutDir=false",
-    "build:watch": "concurrently -n widget,iframe \"cross-env IS_DEV=true npm run build:main -- --watch\" \"cross-env IS_DEV=true npm run build:ui -- --watch\"",
-    "dev": "concurrently -n tsc,build,vite 'npm:tsc:watch' 'npm:build:watch' 'vite' 'cd ./serverless && yarn local:dev'"
-  },
-  "dependencies": {
-    "@sinclair/typebox": "^0.24.38",
-    "clsx": "^1.2.1",
-    "copy-to-clipboard": "^3.3.2",
-    "jszip": "^3.10.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-spinners": "^0.13.4",
-    "react-syntax-highlighter": "^15.5.0"
+    "test": "turbo test",
+    "build": "turbo build",
+    "dev": "turbo develop",
+    "lint": "biome lint --write ./apps ./shared",
+    "format": "biome check --write ./apps ./shared && pnpm biome format --write ./apps ./shared"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "*",
-    "@svgr/core": "^6.3.1",
-    "@types/babel__core": "^7.1.19",
-    "@types/prettier": "^2.7.0",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
-    "@types/react-syntax-highlighter": "^15.5.5",
-    "@vitejs/plugin-react": "^2.0.1",
-    "autoprefixer": "^10.4.8",
-    "concurrently": "^6.3.0",
-    "cross-env": "^7.0.3",
-    "esbuild": "^0.15.5",
-    "npm": "^8.19.1",
-    "postcss": "^8.4.16",
-    "prettier": "^2.7.1",
-    "tailwindcss": "^3.1.8",
-    "typescript": "^4.8.2",
-    "vite": "^3.0.9",
-    "vite-plugin-singlefile": "^0.5.1"
+    "turbo": "^2.1.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yet3/figma-svg-to-react.git"
+  "packageManager": "pnpm@8.15.6",
+  "engines": {
+    "node": ">=18"
   },
-  "keywords": [
-    "figma",
-    "react",
-    "svg",
-    "typescript"
-  ],
-  "bugs": {
-    "url": "https://github.com/yet3/figma-svg-to-react/issues"
-  },
-  "homepage": "https://github.com/yet3/figma-svg-to-react#readme"
+  "dependencies": {
+    "@biomejs/biome": "^1.9.2"
+  }
 }

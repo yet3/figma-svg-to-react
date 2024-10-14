@@ -1,13 +1,19 @@
 {
-  "name": "SVG to React",
+  "name": "SVG to React/Native/Solidjs",
   "id": "1139659790182545298",
   "api": "1.0.0",
-  "editorType": ["figma"],
   "permissions": [],
-  "main": "dist/code.js",
-  "ui": "dist/index.html",
+  "main": "dist/plugin/index.js",
+  "ui": "dist/ui/index.html",
+  "documentAccess": "dynamic-page",
+  "editorType": [
+    "figma"
+  ],
+  "capabilities": [],
+  "enableProposedApi": false,
   "networkAccess": {
-    "allowedDomains": ["https://figma-svg-to-react-api.vercel.app/"],
-    "devAllowedDomains": ["*"]
+    "allowedDomains": [
+      "none"
+    ]
   }
 }

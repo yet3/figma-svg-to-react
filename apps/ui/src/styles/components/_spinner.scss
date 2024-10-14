@@ -1,0 +1,6 @@
+@layer components {
+  .spinner {
+    @apply aspect-square h-6 rounded-full;
+    @apply animate-spin border-blue-500/40 border-r-blue-500 border-4;
+  }
+}

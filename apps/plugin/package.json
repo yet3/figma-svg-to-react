@@ -1,0 +1,22 @@
+{
+	"name": "plugin",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"develop": "vite build --watch",
+		"build": "vite build"
+	},
+	"dependencies": {
+		"@shared/lib": "workspace:*"
+	},
+	"devDependencies": {
+		"@shared/types": "workspace:*",
+		"@figma/plugin-typings": "*",
+		"@types/node": "^22.5.5",
+		"typescript": "^5.6.2",
+		"vite": "^5.4.7",
+		"vite-plugin-singlefile": "^2.0.2",
+		"vite-tsconfig-paths": "^5.0.1"
+	}
+}

@@ -1,0 +1,28 @@
+@layer components {
+  .button-base {
+    @apply p-2 rounded-sm;
+    @apply flex items-center justify-center flex-col;
+    @apply disabled:cursor-wait;
+
+    &:not(:disabled) {
+      @apply hover:scale-105 hover:brightness-110;
+      @apply active:scale-100 active:brightness-90 active:saturate-150;
+    }
+
+    transition:
+      transform 100ms ease,
+      filter 100ms ease;
+  }
+
+  .button-primary {
+    @apply bg-blue-400/50 text-blue-950;
+  }
+
+  .button-success {
+    @apply bg-green-400/50 text-green-950;
+  }
+
+  .button-danger {
+    @apply bg-red-400/50 text-red-950;
+  }
+}

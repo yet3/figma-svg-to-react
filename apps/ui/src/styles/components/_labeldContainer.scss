@@ -1,0 +1,19 @@
+@layer components {
+  .labeld-container {
+    @apply border border-gray-300 rounded-sm relative;
+    @apply mt-3 last-of-type:mb-4;
+
+    &[data-has-content-and-label="true"] {
+      @apply pt-3;
+    }
+  }
+
+  .labeld-container-label {
+    @apply flex items-center;
+    @apply max-w-[calc(100%-1rem)] px-2 py-1;
+    @apply absolute left-2 top-0 -translate-y-1/2;
+    @apply overflow-hidden overflow-ellipsis whitespace-nowrap z-50;
+    @apply bg-white border border-gray-300 rounded-sm;
+    @apply leading-none text-lg;
+  }
+}

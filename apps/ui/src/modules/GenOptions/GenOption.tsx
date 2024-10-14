@@ -1,0 +1,121 @@
+import { Checkbox } from "@common/Checkbox";
+import { GEN_OPTIONS_METADATA } from "@shared/lib";
+import type { IGenOptionMeta, IGenOptionsKeys } from "@shared/types";
+import { BiSolidLeftArrow } from "solid-icons/bi";
+import { FiInfo } from "solid-icons/fi";
+import { type ParentProps, Show, children, createMemo } from "solid-js";
+import { useAppCtx } from "src/AppCtx";
+import { GenOptionRequirmentsPopUp } from "./GenOptionRequirmentsPopUp";
+
+type IProps = ParentProps<{
+	optionKey: IGenOptionsKeys;
+	updateGenOption: (value: boolean) => void;
+}>;
+
+export interface IRequiredOption {
+	optionKey: IGenOptionsKeys;
+	value: boolean;
+	meta: IGenOptionMeta;
+}
+
+export const GenOption = (props: IProps) => {
+	const appCtx = useAppCtx();
+	const c = children(() => props.children);
+
+	const meta = () => {
+		const optMeta = GEN_OPTIONS_METADATA[props.optionKey];
+		if (optMeta == null) {
+			throw Error(`Option "${props.optionKey}" metadata doesn't exist`);
+		}
+		return optMeta;
+	};
+
+	const value = () => {
+		const optValue = appCtx.genOptions[props.optionKey];
+		if (optValue == null) {
+			throw Error(`Option "${props.optionKey}" doesn't exist`);
+		}
+		return optValue;
+	};
+
+	const requiredOptions = createMemo(() => {
+		const options: IRequiredOption[] = [];
+		for (const required of meta().requiredSettings) {
+			const requiredOptMeta = GEN_OPTIONS_METADATA[required.optionKey];
+			if (
+				requiredOptMeta &&
+				(required.framework == null ||
+					required.framework === appCtx.selectedFramework())
+			) {
+				options.push({
+					optionKey: required.optionKey,
+					value: required.value,
+					meta: requiredOptMeta,
+				});
+			}
+		}
+		return options;
+	});
+
+	const isDisabled = () => {
+		let isDisabled = false;
+		for (const required of requiredOptions()) {
+			if (required.value !== appCtx.genOptions[required.optionKey]) {
+				isDisabled = true;
+				break;
+			}
+		}
+		return isDisabled;
+	};
+
+	const handleClick = () => {
+		if (isDisabled()) return;
+		props.updateGenOption(!value());
+	};
+
+	const hasChildren = () => !!c();
+
+	return (
+		<Show when={meta().frameworks.includes(appCtx.selectedFramework())}>
+			<li>
+				<button
+					type="button"
+					onClick={handleClick}
+					classList={{
+						"relative flex items-center": true,
+						"cursor-pointer": !isDisabled(),
+						"group text-gray-400 cursor-not-allowed": isDisabled(),
+					}}
+				>
+					<Checkbox
+						class="mr-1"
+						value={isDisabled() ? false : value()}
+						isDisabled={isDisabled()}
+					/>
+					{meta().displayName}
+
+					<Show when={isDisabled()}>
+						<GenOptionRequirmentsPopUp
+							displayName={meta().displayName}
+							requiredOptions={requiredOptions()}
+						/>
+						<FiInfo class="ml-1 size-5" />
+					</Show>
+
+					<Show when={hasChildren()}>
+						<BiSolidLeftArrow
+							classList={{
+								"fill-gray-600 transition-transform ml-2": true,
+								"-rotate-90": value(),
+							}}
+						/>
+					</Show>
+				</button>
+
+				<Show when={hasChildren() && value()}>
+					<ul class="mt-2 ml-6 grid gap-2">{c()}</ul>
+				</Show>
+			</li>
+		</Show>
+	);
+};

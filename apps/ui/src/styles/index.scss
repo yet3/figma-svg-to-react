@@ -1,0 +1,13 @@
+@import './components/index.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.copy-textarea {
+  position: fixed;
+  top: -1000px;
+  left: -1000px;
+  opacity: 0;
+  pointer-events: none;
+}
