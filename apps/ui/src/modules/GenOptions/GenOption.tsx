@@ -1,6 +1,10 @@
 import { Checkbox } from "@common/Checkbox";
 import { GEN_OPTIONS_METADATA } from "@shared/lib";
-import type { IGenOptionMeta, IGenOptionsKeys } from "@shared/types";
+import type {
+	IGenOptionDisabledData,
+	IGenOptionMeta,
+	IGenOptionsKeys,
+} from "@shared/types";
 import { BiSolidLeftArrow } from "solid-icons/bi";
 import { FiInfo } from "solid-icons/fi";
 import { type ParentProps, Show, children, createMemo } from "solid-js";
@@ -38,35 +42,23 @@ export const GenOption = (props: IProps) => {
 		return optValue;
 	};
 
-	const requiredOptions = createMemo(() => {
-		const options: IRequiredOption[] = [];
-		for (const required of meta().requiredSettings) {
-			const requiredOptMeta = GEN_OPTIONS_METADATA[required.optionKey];
-			if (
-				requiredOptMeta &&
-				(required.framework == null ||
-					required.framework === appCtx.selectedFramework())
-			) {
-				options.push({
-					optionKey: required.optionKey,
-					value: required.value,
-					meta: requiredOptMeta,
-				});
-			}
-		}
-		return options;
-	});
+	const disabledData = () => {
+		let data: IGenOptionDisabledData = {
+			isDisabled: false,
+			reasons: [],
+		};
 
-	const isDisabled = () => {
-		let isDisabled = false;
-		for (const required of requiredOptions()) {
-			if (required.value !== appCtx.genOptions[required.optionKey]) {
-				isDisabled = true;
-				break;
-			}
+		if (meta().disabledWhen) {
+			data = meta().disabledWhen({
+				genOptions: appCtx.genOptions,
+				framework: appCtx.selectedFramework(),
+			});
 		}
-		return isDisabled;
+
+		return data;
 	};
+
+	const isDisabled = () => disabledData().isDisabled;
 
 	const handleClick = () => {
 		if (isDisabled()) return;
@@ -95,10 +87,7 @@ export const GenOption = (props: IProps) => {
 					{meta().displayName}
 
 					<Show when={isDisabled()}>
-						<GenOptionRequirmentsPopUp
-							displayName={meta().displayName}
-							requiredOptions={requiredOptions()}
-						/>
+						<GenOptionRequirmentsPopUp disabledData={disabledData()} />
 						<FiInfo class="ml-1 size-5" />
 					</Show>
 

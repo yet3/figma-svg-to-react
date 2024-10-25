@@ -11,6 +11,7 @@ import { SVG_PLACEHOLDER_PREFIX } from "../consts";
 import { generateOptimizedSvg } from "../svgo";
 import { formatComponent } from "./formatComponent";
 import { COMPONENT_GENERATORS } from "./generators";
+import { resolveFinalGenOptions } from "./resovleFinalGenOptions";
 
 interface IOpts {
 	originalSvg: IOriginalSvg;
@@ -25,29 +26,10 @@ export const regenerateComponent = async ({
 	framework,
 	originalSvg,
 }: IOpts): Promise<IComponent> => {
-	const genOptions = { ...ogGenOptions };
-
-	// resolve generation options values
-	for (const _optKey in GEN_OPTIONS_METADATA) {
-		const optKey = _optKey as IGenOptionsMetaKeys;
-		const meta = GEN_OPTIONS_METADATA[optKey];
-
-		if (genOptions[optKey]) {
-			if (!meta.frameworks.includes(framework)) {
-				genOptions[optKey] = false;
-			} else {
-				for (const required of meta.requiredSettings) {
-					if (
-						required.value !== ogGenOptions[required.optionKey] &&
-						(required.framework == null || required.framework === framework)
-					) {
-						genOptions[optKey] = false;
-						break;
-					}
-				}
-			}
-		}
-	}
+	const genOptions = resolveFinalGenOptions({
+		genOptions: ogGenOptions,
+		framework,
+	});
 
 	const { svgCode, svgDefaultValues, svgTransformationInfo } =
 		generateOptimizedSvg({

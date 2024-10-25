@@ -1,13 +1,19 @@
 import type { FrameworkEnum } from "./framework";
 
+export interface IGenOptionDisabledData {
+	isDisabled?: boolean;
+	reasons: string[];
+}
+
+type IGenOptionMetadisabledWhenFn = (data: {
+	genOptions: IGenOptions;
+	framework: FrameworkEnum;
+}) => IGenOptionDisabledData;
+
 export type IGenOptionMeta = {
 	displayName: string;
 	defaultValue: boolean;
-	requiredSettings: Array<{
-		optionKey: IGenOptionsMetaKeys;
-		value: boolean;
-		framework?: FrameworkEnum;
-	}>;
+	disabledWhen?: IGenOptionMetadisabledWhenFn;
 	frameworks: FrameworkEnum[];
 };
 

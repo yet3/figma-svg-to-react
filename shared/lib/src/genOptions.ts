@@ -21,93 +21,81 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 	importAllAsReact: {
 		displayName: "Add: import * as React",
 		defaultValue: false,
-		requiredSettings: [],
 		frameworks: REACT_FRAMEWORKS,
 	},
 	typescript: {
 		displayName: "Typescript",
 		defaultValue: true,
-		requiredSettings: [],
 		frameworks: JSX_FRAMEWORKS,
 	},
 	props: {
 		displayName: "With props",
 		defaultValue: true,
-		requiredSettings: [],
 		frameworks: JSX_FRAMEWORKS,
 	},
 	spreadProps: {
 		displayName: "Spread props",
 		defaultValue: true,
-		requiredSettings: [{ optionKey: "props", value: true }],
+		disabledWhen: ({ genOptions }) => ({
+			isDisabled: !genOptions.props,
+			reasons: ["{props} must be <ON>"],
+		}),
 		frameworks: JSX_FRAMEWORKS,
 	},
 	propsInterface: {
 		displayName: "Props interface",
 		defaultValue: true,
-		requiredSettings: [
-			{ optionKey: "typescript", value: true },
-			{ optionKey: "props", value: true },
-		],
+		disabledWhen: ({ genOptions }) => ({
+			isDisabled: !genOptions.props,
+			reasons: ["{props} must be <ON>"],
+		}),
 		frameworks: JSX_FRAMEWORKS,
 	},
 	removeWidth: {
 		displayName: "Remove svg width",
 		defaultValue: false,
-		requiredSettings: [],
 		frameworks: ALL_FRAMEWORKS,
 	},
 	removeHeight: {
 		displayName: "Remove svg height",
 		defaultValue: false,
-		requiredSettings: [],
 		frameworks: ALL_FRAMEWORKS,
 	},
 	removeViewbox: {
 		displayName: "Remove viewbox",
 		defaultValue: false,
-		requiredSettings: [],
 		frameworks: ALL_FRAMEWORKS,
 	},
 	namedExport: {
 		displayName: "Named export",
 		defaultValue: true,
-		requiredSettings: [],
 		frameworks: JSX_FRAMEWORKS,
 	},
 	removeAllFillAttributes: {
 		displayName: "Remove all 'fill' attributes",
 		defaultValue: false,
-		requiredSettings: [],
 		frameworks: ALL_FRAMEWORKS,
 	},
 	removeAllStrokeAttributes: {
 		displayName: "Remove all 'stroke' attributes",
 		defaultValue: false,
-		requiredSettings: [],
 		frameworks: ALL_FRAMEWORKS,
 	},
 	removeTitle: {
 		displayName: "Remove <title>",
 		defaultValue: false,
-		requiredSettings: [],
 		frameworks: ALL_FRAMEWORKS,
 	},
 	forwardRef: {
 		displayName: "Forward ref",
 		defaultValue: false,
-		requiredSettings: [
-			{
-				optionKey: "props",
-				value: true,
-				framework: FrameworkEnum.SOLID,
-			},
-			{
-				optionKey: "spreadProps",
-				value: false,
-				framework: FrameworkEnum.SOLID,
-			},
-		],
+		disabledWhen: ({ genOptions, framework }) => ({
+			isDisabled:
+				framework === FrameworkEnum.SOLID
+					? !genOptions.props || genOptions.spreadProps
+					: false,
+			reasons: ["{props} must be <ON>", "{spreadProps} must be <OFF>"],
+		}),
 		frameworks: JSX_FRAMEWORKS,
 	},
 };
