@@ -61,7 +61,7 @@ export const ComponentInputs = () => {
 				/>
 				<Input
 					label="File name"
-					value={compCtx.data.fileName}
+					defaultValue={compCtx.data.fileName}
 					onInput={updateFileName}
 					errors={errors.fileName}
 				/>
