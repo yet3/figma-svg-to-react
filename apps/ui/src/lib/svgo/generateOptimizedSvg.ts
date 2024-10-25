@@ -3,6 +3,7 @@ import { REACT_FRAMEWORKS } from "@shared/lib";
 import type { ISvgOptimizationInfo, ISvgoCtx, ISvgoOpts } from "@shared/types";
 import { optimize } from "svgo";
 import {
+	iconMode,
 	insertPlaceholders,
 	insertValues,
 	removeAttributes,
@@ -10,7 +11,6 @@ import {
 	svgoDefaultPreset,
 	toJsx,
 } from "./plugins";
-import { iconMode } from "./plugins/iconMode";
 
 interface IResult extends ISvgOptimizationInfo {
 	svgCode: string;
