@@ -24,7 +24,7 @@ figma.on("run", async () => {
 		timeout: 60000,
 	});
 
-	figma.showUI(__html__, { width: 600, height: 700 });
+	figma.showUI(__html__, { width: 620, height: 700 });
 
 	const promises: Promise<IExportSvg>[] = [];
 

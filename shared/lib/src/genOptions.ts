@@ -23,6 +23,19 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 		defaultValue: false,
 		frameworks: REACT_FRAMEWORKS,
 	},
+	iconMode: {
+		displayName: "Icon mode (width,height=1em)",
+		defaultValue: false,
+		disabledWhen: ({ genOptions }) => {
+			return {
+				isDisabled: genOptions.removeWidth && genOptions.removeHeight,
+				reasons: [
+					"At least one of {removeWidth}/{removeHeight} options must be <OFF>",
+				],
+			};
+		},
+		frameworks: ALL_FRAMEWORKS,
+	},
 	typescript: {
 		displayName: "Typescript",
 		defaultValue: true,
