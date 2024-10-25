@@ -14,5 +14,5 @@ export const strToFileName = (_str: string) => {
 };
 
 export const isFileNameValid = (str: string): boolean => {
-	return /^[a-zA-Z][a-zA-Z0-9_\-]*$/gm.test(str);
+	return str.trim().length > 0;
 };

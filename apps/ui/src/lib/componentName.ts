@@ -1,5 +1,9 @@
 export const strToComponentName = (str: string) => {
-	const matches = str.trim().match(/[a-zA-Z][a-zA-Z0-9_]*/gm);
+	const matches = str
+		.trim()
+		.replaceAll(/^[0-9]+/gm, "")
+		.match(/[a-zA-Z0-9_]+/gm);
+
 	if (!matches) return "SvgComponent";
 
 	for (const [i, match] of matches.entries()) {
@@ -10,5 +14,5 @@ export const strToComponentName = (str: string) => {
 };
 
 export const isComponentNameValid = (str: string): boolean => {
-	return /^[a-zA-Z][a-zA-Z0-9_]*$/gm.test(str);
+	return /^[A-Z]+/gm.test(str) && /^[a-zA-Z0-9_]+$/gm.test(str);
 };
