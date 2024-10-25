@@ -24,6 +24,7 @@ export interface IGenOptionsMeta {
 	removeViewbox: IGenOptionMeta;
 	removeAllFillAttributes: IGenOptionMeta;
 	removeAllStrokeAttributes: IGenOptionMeta;
+	iconMode: IGenOptionMeta;
 
 	// Component
 	props: IGenOptionMeta;

@@ -1,8 +1,5 @@
 import { resolveFinalGenOptions } from "@lib";
-import {
-	GEN_OPTIONS_METADATA,
-	makeDefaultGenOptions,
-} from "@shared/lib";
+import { GEN_OPTIONS_METADATA, makeDefaultGenOptions } from "@shared/lib";
 import { FrameworkEnum, type IGenOptionsMetaKeys } from "@shared/types";
 import { describe, expect, test } from "vitest";
 
@@ -19,6 +16,52 @@ describe("util: resolve final generation options", () => {
 			for (const key in resolveFinalGenOptions({ genOptions, framework })) {
 				expect(genOptions[key]).toBe(false);
 			}
+		});
+
+		test(`[${framework}]: icon mode should be false`, () => {
+			let genOptions = {
+				...makeDefaultGenOptions(),
+			};
+			for (const key in genOptions) {
+				genOptions[key] = false;
+			}
+
+			genOptions.iconMode = true;
+			genOptions.removeWidth = true;
+			genOptions.removeHeight = true;
+
+			genOptions = resolveFinalGenOptions({ genOptions, framework });
+
+			expect(genOptions.iconMode).toBe(false);
+		});
+
+		test(`[${framework}]: icon mode should be true`, () => {
+			let genOptions = {
+				...makeDefaultGenOptions(),
+			};
+			for (const key in genOptions) {
+				genOptions[key] = false;
+			}
+
+			genOptions.iconMode = true;
+			genOptions.removeWidth = false;
+			genOptions.removeHeight = true;
+
+			genOptions = resolveFinalGenOptions({ genOptions, framework });
+
+			expect(genOptions.iconMode).toBe(true);
+
+			for (const key in genOptions) {
+				genOptions[key] = false;
+			}
+
+			genOptions.iconMode = true;
+			genOptions.removeWidth = true;
+			genOptions.removeHeight = false;
+
+			genOptions = resolveFinalGenOptions({ genOptions, framework });
+
+			expect(genOptions.iconMode).toBe(true);
 		});
 
 		if (framework !== FrameworkEnum.SVG) {
@@ -102,7 +145,12 @@ describe("util: resolve final generation options", () => {
 
 		for (const key in GEN_OPTIONS_METADATA) {
 			const meta = GEN_OPTIONS_METADATA[key as IGenOptionsMetaKeys];
-			expect(genOptions[key]).toBe(meta.frameworks.includes(FrameworkEnum.SVG));
+
+			if (key !== "iconMode") {
+				expect(genOptions[key]).toBe(
+					meta.frameworks.includes(FrameworkEnum.SVG),
+				);
+			} else expect(genOptions.iconMode).toBe(false);
 		}
 	});
 

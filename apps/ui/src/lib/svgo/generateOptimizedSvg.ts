@@ -10,6 +10,7 @@ import {
 	svgoDefaultPreset,
 	toJsx,
 } from "./plugins";
+import { iconMode } from "./plugins/iconMode";
 
 interface IResult extends ISvgOptimizationInfo {
 	svgCode: string;
@@ -68,6 +69,7 @@ export const generateOptimizedSvg = (opts: ISvgoOpts): IResult => {
 			insertValues(ctx),
 			svgoDefaultPreset(ctx),
 			removeUnknownsAndDefaults(ctx),
+			iconMode(ctx),
 			removeAttributes(ctx),
 			toJsx(ctx),
 			// insertPlaceholders should be last
