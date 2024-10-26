@@ -111,6 +111,29 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 		}),
 		frameworks: JSX_FRAMEWORKS,
 	},
+	nodesNamesToClasses: {
+		displayName: "Nodes' names to classes",
+		defaultValue: false,
+		frameworks: ALL_FRAMEWORKS,
+	},
+	bemClasses: {
+		displayName: "BEM classes",
+		defaultValue: false,
+		disabledWhen: ({ genOptions }) => ({
+			isDisabled: !genOptions.nodesNamesToClasses,
+			reasons: ["{nodesNamesToClasses} must be <ON>"],
+		}),
+		frameworks: ALL_FRAMEWORKS,
+	},
+	classOnlyOnSvg: {
+		displayName: "Class only on <svg>",
+		defaultValue: false,
+		disabledWhen: ({ genOptions }) => ({
+			isDisabled: !genOptions.bemClasses && !genOptions.nodesNamesToClasses,
+			reasons: ["{nodesNamesToClasses} must be <ON>"],
+		}),
+		frameworks: ALL_FRAMEWORKS,
+	},
 };
 
 export const makeDefaultGenOptions = (): IGenOptions => {

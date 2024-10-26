@@ -3,14 +3,15 @@ import { REACT_FRAMEWORKS } from "@shared/lib";
 import type { ISvgOptimizationInfo, ISvgoCtx, ISvgoOpts } from "@shared/types";
 import { optimize } from "svgo";
 import {
+	iconMode,
 	insertPlaceholders,
 	insertValues,
 	removeAttributes,
 	removeUnknownsAndDefaults,
+	insertClasses,
 	svgoDefaultPreset,
 	toJsx,
 } from "./plugins";
-import { iconMode } from "./plugins/iconMode";
 
 interface IResult extends ISvgOptimizationInfo {
 	svgCode: string;
@@ -67,6 +68,8 @@ export const generateOptimizedSvg = (opts: ISvgoOpts): IResult => {
 		plugins: [
 			// insertValues should be first so we can capture defaultValues
 			insertValues(ctx),
+			// insertClasses must run before svgoDefaultPreset so that it can access svg ids
+			insertClasses(ctx),
 			svgoDefaultPreset(ctx),
 			removeUnknownsAndDefaults(ctx),
 			iconMode(ctx),
