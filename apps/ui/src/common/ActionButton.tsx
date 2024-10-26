@@ -1,7 +1,7 @@
 import { createSignal, onCleanup } from "solid-js";
+import { figmaNotifyError } from "src/lib/figmaNotify";
 import { Button } from "./Button";
 import { Spinner } from "./Spinner";
-import { figmaNotifyError } from "src/lib/figmaNotify";
 
 enum ActionBtnStatus {
 	IDLE = "IDLE",
@@ -62,7 +62,7 @@ export const ActionButton = (props: IProps) => {
 		} catch (e) {
 			console.log(e);
 			setResultStatus(ResultStatus.FAILURE);
-      figmaNotifyError("Error copying", e)
+			figmaNotifyError("Error copying", e);
 		}
 		setStatus(ActionBtnStatus.RESULT);
 

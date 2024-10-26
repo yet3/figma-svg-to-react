@@ -4,11 +4,11 @@ import type { ISvgOptimizationInfo, ISvgoCtx, ISvgoOpts } from "@shared/types";
 import { optimize } from "svgo";
 import {
 	iconMode,
+	insertClasses,
 	insertPlaceholders,
 	insertValues,
 	removeAttributes,
 	removeUnknownsAndDefaults,
-	insertClasses,
 	svgoDefaultPreset,
 	toJsx,
 } from "./plugins";

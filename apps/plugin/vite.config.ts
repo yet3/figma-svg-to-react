@@ -3,8 +3,6 @@ import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-console.log(path.resolve("../../dist/plugin"))
-
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
 	plugins: [viteSingleFile(), tsconfigPaths()],
