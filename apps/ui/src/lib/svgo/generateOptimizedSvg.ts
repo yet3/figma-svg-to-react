@@ -8,6 +8,7 @@ import {
 	insertValues,
 	removeAttributes,
 	removeUnknownsAndDefaults,
+	smartClasses,
 	svgoDefaultPreset,
 	toJsx,
 } from "./plugins";
@@ -67,6 +68,8 @@ export const generateOptimizedSvg = (opts: ISvgoOpts): IResult => {
 		plugins: [
 			// insertValues should be first so we can capture defaultValues
 			insertValues(ctx),
+			// smartClases must run before svgoDefaultPreset so that it can access svg ids
+			smartClasses(ctx),
 			svgoDefaultPreset(ctx),
 			removeUnknownsAndDefaults(ctx),
 			iconMode(ctx),

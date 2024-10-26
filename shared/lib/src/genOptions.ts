@@ -111,6 +111,29 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 		}),
 		frameworks: JSX_FRAMEWORKS,
 	},
+	smartClasses: {
+		displayName: "Smart classes",
+		defaultValue: false,
+		frameworks: ALL_FRAMEWORKS,
+	},
+	smartClassesOnlySvg: {
+		displayName: "Class only on <svg>",
+		defaultValue: false,
+		disabledWhen: ({ genOptions }) => ({
+			isDisabled: !genOptions.smartClasses,
+			reasons: ["{smartClasses} must be <ON>"],
+		}),
+		frameworks: ALL_FRAMEWORKS,
+	},
+	smartClassesExact: {
+		displayName: "Smart classes exact",
+		defaultValue: false,
+		disabledWhen: ({ genOptions }) => ({
+			isDisabled: !genOptions.smartClasses,
+			reasons: ["{smartClasses} must be <ON>"],
+		}),
+		frameworks: ALL_FRAMEWORKS,
+	},
 };
 
 export const makeDefaultGenOptions = (): IGenOptions => {

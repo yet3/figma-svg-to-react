@@ -25,6 +25,9 @@ export interface IGenOptionsMeta {
 	removeAllFillAttributes: IGenOptionMeta;
 	removeAllStrokeAttributes: IGenOptionMeta;
 	iconMode: IGenOptionMeta;
+	smartClasses: IGenOptionMeta;
+	smartClassesOnlySvg: IGenOptionMeta;
+	smartClassesExact: IGenOptionMeta;
 
 	// Component
 	props: IGenOptionMeta;
