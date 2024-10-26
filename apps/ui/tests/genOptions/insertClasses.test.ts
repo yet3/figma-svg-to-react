@@ -15,13 +15,13 @@ import {
 } from "../lib/consts";
 import { prepareCompTestCtx } from "../lib/prepareCompTestCtx";
 
-describe("smart classes", () => {
+describe("insert classes", () => {
 	test("parse class attribute", () => {
 		expect(parseClassAttr("Group 1")).toBe("Group1");
 		expect(parseClassAttr("Group_1")).toBe("Group_1");
-		expect(parseClassAttr("21Group_1")).toBe("Group_1");
-		expect(parseClassAttr("21Group:1")).toBe("Group\\:1");
-		expect(parseClassAttr("Group 1 (special)")).toBe("Group1\\(special\\)");
+		expect(parseClassAttr("21Group 1 test")).toBe("Group1test");
+		expect(parseClassAttr("21Group:1")).toBe("Group:1");
+		expect(parseClassAttr("Group 1 (special)")).toBe("Group1(special)");
 		expect(parseClassAttr("Group_1__Rectangle_1")).toBe("Group_1__Rectangle_1");
 
 		expect(parseClassAttr(TEST_SVG_GROUP_ID)).toBe(TEST_SVG_GROUP_ID_PARSED);
