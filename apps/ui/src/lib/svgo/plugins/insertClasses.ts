@@ -3,12 +3,12 @@ import type { XastChild, XastElement } from "svgo/lib/types";
 import { getRootNodes } from "../getRootNodes";
 import { parseClassAttr } from "../parseClassAttr";
 
-export const smartClasses: ISvgoPluginFn = ({ genOptions, isReact }) => {
+export const insertClasses: ISvgoPluginFn = ({ genOptions, isReact }) => {
 	const goThroughChildren = (node: XastChild, accClass = "") => {
 		if (node.type !== "element") return;
 
 		if (node.attributes.id) {
-			if (genOptions.smartClassesExact) {
+			if (!genOptions.bemClasses) {
 				setClassAttr(node, parseClassAttr(node.attributes.id));
 			} else {
 				// biome-ignore lint lint/style/noParameterAssign:
@@ -29,11 +29,13 @@ export const smartClasses: ISvgoPluginFn = ({ genOptions, isReact }) => {
 	};
 
 	return {
-		name: "smart-classes",
+		name: "insert-classes",
 		fn: () => ({
 			root: {
 				enter: (root) => {
-					if (!genOptions.smartClasses) return;
+					if (!genOptions.nodesNamesToClasses) {
+						return;
+					}
 
 					const svgNodes = getRootNodes(root);
 					for (const svgNode of svgNodes) {
@@ -55,7 +57,7 @@ export const smartClasses: ISvgoPluginFn = ({ genOptions, isReact }) => {
 								}
 							}
 
-							if (!genOptions.smartClassesOnlySvg) {
+							if (!genOptions.classOnlyOnSvg) {
 								for (const child of svgNode.children) {
 									goThroughChildren(child, baseClass);
 								}

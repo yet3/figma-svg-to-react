@@ -111,26 +111,26 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 		}),
 		frameworks: JSX_FRAMEWORKS,
 	},
-	smartClasses: {
-		displayName: "Smart classes",
+	nodesNamesToClasses: {
+		displayName: "Nodes' names to classes",
 		defaultValue: false,
 		frameworks: ALL_FRAMEWORKS,
 	},
-	smartClassesOnlySvg: {
-		displayName: "Class only on <svg>",
+	bemClasses: {
+		displayName: "BEM classes",
 		defaultValue: false,
 		disabledWhen: ({ genOptions }) => ({
-			isDisabled: !genOptions.smartClasses,
-			reasons: ["{smartClasses} must be <ON>"],
+			isDisabled: !genOptions.nodesNamesToClasses,
+			reasons: ["{nodesNamesToClasses} must be <ON>"],
 		}),
 		frameworks: ALL_FRAMEWORKS,
 	},
-	smartClassesExact: {
-		displayName: "Smart classes exact",
+	classOnlyOnSvg: {
+		displayName: "Class only on <svg>",
 		defaultValue: false,
 		disabledWhen: ({ genOptions }) => ({
-			isDisabled: !genOptions.smartClasses,
-			reasons: ["{smartClasses} must be <ON>"],
+			isDisabled: !genOptions.bemClasses && !genOptions.nodesNamesToClasses,
+			reasons: ["{nodesNamesToClasses} must be <ON>"],
 		}),
 		frameworks: ALL_FRAMEWORKS,
 	},

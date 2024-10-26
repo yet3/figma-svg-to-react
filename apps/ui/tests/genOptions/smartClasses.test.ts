@@ -48,7 +48,8 @@ describe("smart classes", () => {
 						svgCode: TEST_SVGS.GROUP_2_RECTS_WITH_IDS,
 						framework,
 						genOptions: {
-							smartClasses: true,
+							nodesNamesToClasses: true,
+              bemClasses: true,
 						},
 					});
 
@@ -70,8 +71,7 @@ describe("smart classes", () => {
 						svgCode: TEST_SVGS.GROUP_2_RECTS_WITH_IDS,
 						framework,
 						genOptions: {
-							smartClasses: true,
-							smartClassesExact: true,
+							nodesNamesToClasses: true,
 						},
 					});
 
@@ -88,13 +88,31 @@ describe("smart classes", () => {
 					).toBe(TEST_SVG_RECT_2_ID_PARSED);
 				});
 
-				test("should have class only on <svg>", async () => {
+
+				test("should have BEM class only on <svg>", async () => {
 					const { svgEl, component } = await prepareCompTestCtx({
 						svgCode: TEST_SVGS.GROUP_2_RECTS_WITH_IDS,
 						framework,
 						genOptions: {
-							smartClasses: true,
-							smartClassesOnlySvg: true,
+              nodesNamesToClasses: true,
+							bemClasses: true,
+							classOnlyOnSvg: true,
+						},
+					});
+
+					expect(checkCodeForClasses(component, framework)).toHaveLength(1);
+					expect(getTestClassAttr(svgEl, framework)).toBe(
+						TEST_SVG_GROUP_ID_PARSED,
+					);
+				});
+
+				test("should have exact class only on <svg>", async () => {
+					const { svgEl, component } = await prepareCompTestCtx({
+						svgCode: TEST_SVGS.GROUP_2_RECTS_WITH_IDS,
+						framework,
+						genOptions: {
+							nodesNamesToClasses: true,
+							classOnlyOnSvg: true,
 						},
 					});
 
@@ -105,13 +123,13 @@ describe("smart classes", () => {
 				});
 			});
 
-			describe("One rect", () => {
+			describe("1 rect", () => {
 				test("should have class on <svg>", async () => {
 					const { svgEl, component } = await prepareCompTestCtx({
 						svgCode: TEST_SVGS.RECTS_WITH_ID,
 						framework,
 						genOptions: {
-							smartClasses: true,
+              nodesNamesToClasses: true
 						},
 					});
 
