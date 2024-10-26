@@ -90,6 +90,7 @@ export const App = () => {
 											tmpFrameworkSvgs[frameworkKey][compIdx].genError =
 												e.toString();
 
+											console.log(e);
 											reject(e);
 										}
 									}),
@@ -142,7 +143,7 @@ export const App = () => {
 						resolve();
 					} catch (e) {
 						reject(e);
-
+						console.log(e);
 						setFrameworkComponents(framework, (c) => c === comp, {
 							genError: e.toString(),
 							status: ComponentStatus.ERROR,
