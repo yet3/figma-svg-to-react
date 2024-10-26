@@ -9,7 +9,7 @@ export const SaveAllSvgs = () => {
 	return (
 		<LabeldContainer>
 			<ActionButton
-				class="w-full"
+				class="hover:!scale-[1.02] w-full"
 				content="Save all SVGs as files"
 				onAction={async () => {
 					await saveComponentsAsFiles({
