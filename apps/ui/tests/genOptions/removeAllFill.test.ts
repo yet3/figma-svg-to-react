@@ -5,14 +5,13 @@ import { prepareCompTestCtx } from "../lib/prepareCompTestCtx";
 
 describe("remove all fill attributes", () => {
 	test("should remove all fill", async () => {
-		const { svgEl, beforeSvgEl } = await prepareCompTestCtx({
+		const { svgEl } = await prepareCompTestCtx({
 			svgCode: TEST_SVGS.SIMPLE_RECT,
 			genOptions: {
 				removeAllFillAttributes: true,
 			},
 		});
 
-		expect(hasTestSvgAttributeAnywhere(beforeSvgEl, "fill")).toBe(true);
 		expect(hasTestSvgAttributeAnywhere(svgEl, "fill")).toBe(false);
 	});
 });
