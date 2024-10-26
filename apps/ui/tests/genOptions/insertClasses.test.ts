@@ -49,7 +49,7 @@ describe("insert classes", () => {
 						framework,
 						genOptions: {
 							nodesNamesToClasses: true,
-              bemClasses: true,
+							bemClasses: true,
 						},
 					});
 
@@ -88,13 +88,12 @@ describe("insert classes", () => {
 					).toBe(TEST_SVG_RECT_2_ID_PARSED);
 				});
 
-
 				test("should have BEM class only on <svg>", async () => {
 					const { svgEl, component } = await prepareCompTestCtx({
 						svgCode: TEST_SVGS.GROUP_2_RECTS_WITH_IDS,
 						framework,
 						genOptions: {
-              nodesNamesToClasses: true,
+							nodesNamesToClasses: true,
 							bemClasses: true,
 							classOnlyOnSvg: true,
 						},
@@ -129,7 +128,7 @@ describe("insert classes", () => {
 						svgCode: TEST_SVGS.RECTS_WITH_ID,
 						framework,
 						genOptions: {
-              nodesNamesToClasses: true
+							nodesNamesToClasses: true,
 						},
 					});
 
