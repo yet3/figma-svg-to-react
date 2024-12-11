@@ -1,3 +1,4 @@
+import exp from "node:constants";
 import { JSX_FRAMEWORKS, REACT_FRAMEWORKS } from "@shared/lib";
 import { FrameworkEnum, type IGenOptions } from "@shared/types";
 import { describe, expect, test } from "vitest";
@@ -7,7 +8,6 @@ import {
 	prepareCompTestCtx,
 } from "../lib/prepareCompTestCtx";
 import { testJsxImports } from "../lib/testJsxImports";
-import exp from "node:constants";
 
 describe("jsx generation options ", () => {
 	interface ITestOpts {
@@ -250,6 +250,35 @@ describe("jsx generation options ", () => {
 		});
 	});
 
+	describe("with props and typescript and allowImportAsType", () => {
+		const genOpts: Partial<IGenOptions> = {
+			props: true,
+			typescript: true,
+			allowImportAsType: true,
+		};
+
+		makeTest({
+			name: "should import and use type SvgProps and used svg elements",
+			framework: FrameworkEnum.REACT_NATIVE,
+			genOptions: genOpts,
+			tests: (ctx) => {
+				testJsxImports({
+					code: ctx.component.code,
+					default: "Svg",
+					named: [
+						{ name: "SvgProps", asType: true },
+						...ctx.component.svgTransformationInfo.usedReactNativeElements.filter(
+							(e) => e !== "Svg",
+						),
+					],
+					from: "react-native-svg",
+				});
+
+				expect(ctx.component.code).toContain("(props: SvgProps");
+			},
+		});
+	});
+
 	describe("with props and typescript and props interface", () => {
 		const genOpts: Partial<IGenOptions> = {
 			props: true,
@@ -298,12 +327,11 @@ describe("jsx generation options ", () => {
 		});
 	});
 
-
 	makeTest({
 		name: "should not have xlmns attribute on Svg",
 		framework: FrameworkEnum.REACT_NATIVE,
 		tests: (ctx) => {
-      expect(ctx.svgEl.properties).not.haveOwnProperty('xmlns')
+			expect(ctx.svgEl.properties).not.haveOwnProperty("xmlns");
 		},
 	});
 });

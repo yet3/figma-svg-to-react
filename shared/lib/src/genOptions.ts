@@ -23,6 +23,11 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 		defaultValue: false,
 		frameworks: REACT_FRAMEWORKS,
 	},
+  allowImportAsType: {
+		displayName: "Allow: named import as type",
+		defaultValue: true,
+		frameworks: JSX_FRAMEWORKS,
+  },
 	iconMode: {
 		displayName: "Icon mode (width,height=1em)",
 		defaultValue: false,

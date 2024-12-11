@@ -10,6 +10,18 @@ export type IJsxCompImports = Map<
 export const makeJsxImportsMap = () => {
 	const importsMap: IJsxCompImports = new Map();
 
+	type INamedImport = string | { name: string; asType?: boolean };
+	const namedImportToString = (imp: INamedImport): string => {
+		let name = "";
+		if (typeof imp === "object") {
+			if (imp.asType) {
+				name = "type ";
+			}
+			name += imp.name;
+		} else name = imp;
+		return name;
+	};
+
 	return {
 		importsMap,
 		importsToString: () => {
@@ -29,20 +41,27 @@ export const makeJsxImportsMap = () => {
 			}
 			return imports.join("\n");
 		},
-		addImport: (from: string, data: { named?: string[]; default?: string }) => {
+		addImport: (
+			from: string,
+			data: {
+				named?: INamedImport[];
+				default?: string;
+			},
+		) => {
 			if (importsMap.has(from)) {
 				const current = importsMap.get(from);
 				if (data.default) {
 					current.default = data.default;
 				}
+
 				if (data.named) {
 					for (const imp of data.named) {
-						current.named.add(imp);
+						current.named.add(namedImportToString(imp));
 					}
 				}
 			} else {
 				importsMap.set(from, {
-					named: new Set(data.named),
+					named: new Set(data.named.map(namedImportToString)),
 					default: data.default,
 				});
 			}
@@ -90,7 +109,9 @@ export const makeJsxComponentGenerator = (
 					svgType = "SVGProps<SVGSVGElement>";
 					break;
 				case FrameworkEnum.REACT_NATIVE:
-					addImport("react-native-svg", { named: ["SvgProps"] });
+					addImport("react-native-svg", {
+						named: [{ name: "SvgProps", asType: genOptions.allowImportAsType }],
+					});
 					svgType = "SvgProps";
 					break;
 				case FrameworkEnum.SOLID:
