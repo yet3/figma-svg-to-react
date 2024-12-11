@@ -1,5 +1,9 @@
 import exp from "node:constants";
-import { JSX_FRAMEWORKS, REACT_FRAMEWORKS } from "@shared/lib";
+import {
+	JSX_FRAMEWORKS,
+	REACT_AND_NATIVE_FRAMEWORKS,
+	REACT_FRAMEWORKS,
+} from "@shared/lib";
 import { FrameworkEnum, type IGenOptions } from "@shared/types";
 import { describe, expect, test } from "vitest";
 import { TEST_SVGS } from "../lib/consts";
@@ -65,7 +69,7 @@ describe("jsx generation options ", () => {
 	describe("with forwardRef", () => {
 		makeTest({
 			name: "should have forwardRef",
-			framework: REACT_FRAMEWORKS,
+			framework: [FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE],
 			genOptions: { forwardRef: true },
 			tests: (ctx) => {
 				testJsxImports({
@@ -80,7 +84,7 @@ describe("jsx generation options ", () => {
 
 		makeTest({
 			name: "should not have ref",
-			framework: FrameworkEnum.SOLID,
+			framework: [FrameworkEnum.SOLID, FrameworkEnum.REACT],
 			genOptions: { forwardRef: true },
 			tests: (ctx) => {
 				expect(ctx.component.code).not.toContain("ref={props.ref}");
@@ -122,7 +126,7 @@ describe("jsx generation options ", () => {
 			const genOpts: Partial<IGenOptions> = { props: true, forwardRef: true };
 			makeTest({
 				name: "should have forwardRef",
-				framework: REACT_FRAMEWORKS,
+				framework: [FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE],
 				genOptions: genOpts,
 				tests: (ctx) => {
 					expect(ctx.component.code).toContain("forwardRef((props, ref)");
@@ -131,7 +135,7 @@ describe("jsx generation options ", () => {
 
 			makeTest({
 				name: "should have ref",
-				framework: FrameworkEnum.SOLID,
+				framework: [FrameworkEnum.SOLID, FrameworkEnum.REACT],
 				genOptions: genOpts,
 				tests: (ctx) => {
 					expect(ctx.component.code).toContain("ref={props.ref}");
@@ -158,7 +162,7 @@ describe("jsx generation options ", () => {
 
 			makeTest({
 				name: "should have forwardRef",
-				framework: REACT_FRAMEWORKS,
+				framework: [FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE],
 				genOptions: genOpts,
 				tests: (ctx) => {
 					expect(ctx.component.code).toContain(
@@ -174,7 +178,7 @@ describe("jsx generation options ", () => {
 
 		makeTest({
 			name: "should import and use SVGProps",
-			framework: FrameworkEnum.REACT,
+			framework: REACT_FRAMEWORKS,
 			genOptions: genOpts,
 			tests: (ctx) => {
 				testJsxImports({
@@ -228,7 +232,7 @@ describe("jsx generation options ", () => {
 		describe("with forwardRef", () => {
 			makeTest({
 				name: "should have forwardRef",
-				framework: FrameworkEnum.REACT,
+				framework: FrameworkEnum.REACT18,
 				genOptions: { ...genOpts, forwardRef: true },
 				tests: (ctx) => {
 					expect(ctx.component.code).toMatch(
@@ -256,6 +260,21 @@ describe("jsx generation options ", () => {
 			typescript: true,
 			allowImportAsType: true,
 		};
+
+		makeTest({
+			name: "should import and use type SVGProps",
+			framework: REACT_FRAMEWORKS,
+			genOptions: genOpts,
+			tests: (ctx) => {
+				testJsxImports({
+					code: ctx.component.code,
+					named: [{ name: "SVGProps", asType: true }],
+					from: "react",
+				});
+
+				expect(ctx.component.code).toContain("(props: SVGProps<SVGSVGElement>");
+			},
+		});
 
 		makeTest({
 			name: "should import and use type SvgProps and used svg elements",
@@ -292,7 +311,7 @@ describe("jsx generation options ", () => {
 			genOptions: genOpts,
 			tests: (ctx) => {
 				let propsExtends = "";
-				if (ctx.framework === FrameworkEnum.REACT) {
+				if (REACT_FRAMEWORKS.includes(ctx.framework)) {
 					propsExtends = " extends SVGProps<SVGSVGElement>";
 				} else if (ctx.framework === FrameworkEnum.REACT_NATIVE) {
 					propsExtends = " extends SvgProps";
@@ -316,7 +335,7 @@ describe("jsx generation options ", () => {
 		describe("with forwardRef", () => {
 			makeTest({
 				name: "props should use IProps",
-				framework: REACT_FRAMEWORKS,
+				framework: [FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE],
 				genOptions: { ...genOpts, forwardRef: true },
 				tests: (ctx) => {
 					expect(ctx.component.code).toMatch(

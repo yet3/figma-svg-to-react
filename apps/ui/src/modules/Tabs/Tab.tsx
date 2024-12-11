@@ -19,6 +19,10 @@ export const Tab = (props: IProps) => {
 				Icon = ReactIcon;
 				text = "React";
 				break;
+			case FrameworkEnum.REACT18:
+				Icon = ReactIcon;
+				text = "React <= 18";
+				break;
 			case FrameworkEnum.REACT_NATIVE:
 				Icon = ReactIcon;
 				text = "React Native";

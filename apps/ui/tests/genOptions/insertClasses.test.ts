@@ -1,5 +1,8 @@
-import { REACT_FRAMEWORKS } from "@shared/lib";
-import { FrameworkEnum, type IComponent } from "@shared/types";
+import {
+	NOT_REACT_NATIVE_FRAMEWORKS,
+	REACT_FRAMEWORKS,
+} from "@shared/lib";
+import type { FrameworkEnum, IComponent } from "@shared/types";
 import { parseClassAttr } from "src/lib/svgo/parseClassAttr";
 import type { ElementNode } from "svg-parser";
 import { getTestClassAttr } from "tests/lib/getTestClassAttr";
@@ -40,7 +43,7 @@ describe("insert classes", () => {
 		return component.code.match(new RegExp(`${attrName}=`, "gm"));
 	};
 
-	for (const framework of Object.values(FrameworkEnum)) {
+	for (const framework of NOT_REACT_NATIVE_FRAMEWORKS) {
 		describe(framework, () => {
 			describe("Group with 2 rects", () => {
 				test("should have BEM classes on <svg> and 2 <rects>", async () => {

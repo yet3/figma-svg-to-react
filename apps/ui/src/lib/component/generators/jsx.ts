@@ -1,5 +1,5 @@
 import { SVG_PLACEHOLDERS } from "@lib";
-import { REACT_FRAMEWORKS } from "@shared/lib";
+import { REACT_AND_NATIVE_FRAMEWORKS } from "@shared/lib";
 import { FrameworkEnum, type IComponentGenerator } from "@shared/types";
 
 export type IJsxCompImports = Map<
@@ -82,7 +82,7 @@ export const makeJsxComponentGenerator = (
 		};
 
 		let reactImport = "";
-		if (REACT_FRAMEWORKS.includes(framework)) {
+		if (REACT_AND_NATIVE_FRAMEWORKS.includes(framework)) {
 			if (genOptions.importAllAsReact) {
 				reactImport = "import * as React from 'react';";
 			}
@@ -101,11 +101,12 @@ export const makeJsxComponentGenerator = (
 		let propsType = "";
 		let svgType = "";
 		if (genOptions.typescript) {
-			svgType = "SVGProps<SVGSVGElement>";
-
 			switch (framework) {
 				case FrameworkEnum.REACT:
-					addImport("react", { named: ["SVGProps"] });
+				case FrameworkEnum.REACT18:
+					addImport("react", {
+						named: [{ name: "SVGProps", asType: genOptions.allowImportAsType }],
+					});
 					svgType = "SVGProps<SVGSVGElement>";
 					break;
 				case FrameworkEnum.REACT_NATIVE:
@@ -145,7 +146,11 @@ export const makeJsxComponentGenerator = (
 		if (genOptions.forwardRef) {
 			if (framework === FrameworkEnum.SOLID) {
 				replacePlaceholder(SVG_PLACEHOLDERS.ATTRS.REF, "ref={props.ref}");
-			} else if (REACT_FRAMEWORKS.includes(framework)) {
+			} else if (framework === FrameworkEnum.REACT) {
+				replacePlaceholder(SVG_PLACEHOLDERS.ATTRS.REF, "ref={props.ref}");
+			} else if (
+				[FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE].includes(framework)
+			) {
 				addImport("react", { named: ["forwardRef"] });
 				afterProp = "";
 
