@@ -38,7 +38,7 @@ export interface IGenOptionsMeta {
 	// Typescript
 	typescript: IGenOptionMeta;
 	propsInterface: IGenOptionMeta;
-  allowImportAsType: IGenOptionMeta
+	allowImportAsType: IGenOptionMeta;
 
 	importAllAsReact: IGenOptionMeta;
 }
