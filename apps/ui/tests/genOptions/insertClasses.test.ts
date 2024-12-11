@@ -1,7 +1,4 @@
-import {
-	NOT_REACT_NATIVE_FRAMEWORKS,
-	REACT_FRAMEWORKS,
-} from "@shared/lib";
+import { NOT_REACT_NATIVE_FRAMEWORKS, REACT_FRAMEWORKS } from "@shared/lib";
 import type { FrameworkEnum, IComponent } from "@shared/types";
 import { parseClassAttr } from "src/lib/svgo/parseClassAttr";
 import type { ElementNode } from "svg-parser";

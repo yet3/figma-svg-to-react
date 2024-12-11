@@ -1,6 +1,6 @@
 import { FrameworkEnum, type IComponentGenerator } from "@shared/types";
 import {
-  REACT18_COMPONENT_GENERATOR,
+	REACT18_COMPONENT_GENERATOR,
 	REACT_COMPONENT_GENERATOR,
 	REACT_NATIVE_COMPONENT_GENERATOR,
 } from "./react";
