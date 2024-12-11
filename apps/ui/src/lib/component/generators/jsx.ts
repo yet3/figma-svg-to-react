@@ -90,8 +90,8 @@ export const makeJsxComponentGenerator = (
 					svgType = "SVGProps<SVGSVGElement>";
 					break;
 				case FrameworkEnum.REACT_NATIVE:
-					addImport("react-native-svg", { named: ["SVGProps"] });
-					svgType = "SVGProps";
+					addImport("react-native-svg", { named: ["SvgProps"] });
+					svgType = "SvgProps";
 					break;
 				case FrameworkEnum.SOLID:
 					addImport("solid-js/jsx-runtime", { named: ["JSX"] });

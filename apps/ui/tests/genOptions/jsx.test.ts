@@ -7,6 +7,7 @@ import {
 	prepareCompTestCtx,
 } from "../lib/prepareCompTestCtx";
 import { testJsxImports } from "../lib/testJsxImports";
+import exp from "node:constants";
 
 describe("jsx generation options ", () => {
 	interface ITestOpts {
@@ -187,7 +188,7 @@ describe("jsx generation options ", () => {
 		});
 
 		makeTest({
-			name: "should import and use SVGProps and used svg elements",
+			name: "should import and use SvgProps and used svg elements",
 			framework: FrameworkEnum.REACT_NATIVE,
 			genOptions: genOpts,
 			tests: (ctx) => {
@@ -195,7 +196,7 @@ describe("jsx generation options ", () => {
 					code: ctx.component.code,
 					default: "Svg",
 					named: [
-						"SVGProps",
+						"SvgProps",
 						...ctx.component.svgTransformationInfo.usedReactNativeElements.filter(
 							(e) => e !== "Svg",
 						),
@@ -203,7 +204,7 @@ describe("jsx generation options ", () => {
 					from: "react-native-svg",
 				});
 
-				expect(ctx.component.code).toContain("(props: SVGProps");
+				expect(ctx.component.code).toContain("(props: SvgProps");
 			},
 		});
 
@@ -242,7 +243,7 @@ describe("jsx generation options ", () => {
 				genOptions: { ...genOpts, forwardRef: true },
 				tests: (ctx) => {
 					expect(ctx.component.code).toMatch(
-						/forwardRef\s*<\s*SVGSVGElement\s*,\s*SVGProps\s*>\s*\(\s*\(props,\s*ref\)/gm,
+						/forwardRef\s*<\s*SVGSVGElement\s*,\s*SvgProps\s*>\s*\(\s*\(props,\s*ref\)/gm,
 					);
 				},
 			});
@@ -265,7 +266,7 @@ describe("jsx generation options ", () => {
 				if (ctx.framework === FrameworkEnum.REACT) {
 					propsExtends = " extends SVGProps<SVGSVGElement>";
 				} else if (ctx.framework === FrameworkEnum.REACT_NATIVE) {
-					propsExtends = " extends SVGProps";
+					propsExtends = " extends SvgProps";
 				} else if (ctx.framework === FrameworkEnum.SOLID) {
 					propsExtends = " extends JSX.SvgSVGAttributes<SVGSVGElement>";
 				}
@@ -295,5 +296,14 @@ describe("jsx generation options ", () => {
 				},
 			});
 		});
+	});
+
+
+	makeTest({
+		name: "should not have xlmns attribute on Svg",
+		framework: FrameworkEnum.REACT_NATIVE,
+		tests: (ctx) => {
+      expect(ctx.svgEl.properties).not.haveOwnProperty('xmlns')
+		},
 	});
 });
