@@ -11,17 +11,25 @@ import {
 export const OPTIONS_VERSION = "1";
 
 const ALL_FRAMEWORKS = Object.values(FrameworkEnum);
-export const REACT_FRAMEWORKS = [
-	FrameworkEnum.REACT,
+
+export const REACT_FRAMEWORKS = [FrameworkEnum.REACT, FrameworkEnum.REACT18];
+export const REACT_AND_NATIVE_FRAMEWORKS = [
+	...REACT_FRAMEWORKS,
 	FrameworkEnum.REACT_NATIVE,
 ];
-export const JSX_FRAMEWORKS = [...REACT_FRAMEWORKS, FrameworkEnum.SOLID];
+export const JSX_FRAMEWORKS = [
+	...REACT_AND_NATIVE_FRAMEWORKS,
+	FrameworkEnum.SOLID,
+];
+export const NOT_REACT_NATIVE_FRAMEWORKS = ALL_FRAMEWORKS.filter(
+	(f) => f !== FrameworkEnum.REACT_NATIVE,
+);
 
 export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 	importAllAsReact: {
 		displayName: "Add: import * as React",
 		defaultValue: false,
-		frameworks: REACT_FRAMEWORKS,
+		frameworks: REACT_AND_NATIVE_FRAMEWORKS,
 	},
 	allowImportAsType: {
 		displayName: "Allow: named import as type",
@@ -108,10 +116,9 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 		displayName: "Forward ref",
 		defaultValue: false,
 		disabledWhen: ({ genOptions, framework }) => ({
-			isDisabled:
-				framework === FrameworkEnum.SOLID
-					? !genOptions.props || genOptions.spreadProps
-					: false,
+			isDisabled: [FrameworkEnum.REACT, FrameworkEnum.SOLID].includes(framework)
+				? !genOptions.props || genOptions.spreadProps
+				: false,
 			reasons: ["{props} must be <ON>", "{spreadProps} must be <OFF>"],
 		}),
 		frameworks: JSX_FRAMEWORKS,
@@ -119,7 +126,7 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 	nodesNamesToClasses: {
 		displayName: "Nodes' names to classes",
 		defaultValue: false,
-		frameworks: ALL_FRAMEWORKS,
+		frameworks: NOT_REACT_NATIVE_FRAMEWORKS,
 	},
 	bemClasses: {
 		displayName: "BEM classes",
@@ -128,7 +135,7 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 			isDisabled: !genOptions.nodesNamesToClasses,
 			reasons: ["{nodesNamesToClasses} must be <ON>"],
 		}),
-		frameworks: ALL_FRAMEWORKS,
+		frameworks: NOT_REACT_NATIVE_FRAMEWORKS,
 	},
 	classOnlyOnSvg: {
 		displayName: "Class only on <svg>",
@@ -137,7 +144,7 @@ export const GEN_OPTIONS_METADATA: IGenOptionsMeta = {
 			isDisabled: !genOptions.bemClasses && !genOptions.nodesNamesToClasses,
 			reasons: ["{nodesNamesToClasses} must be <ON>"],
 		}),
-		frameworks: ALL_FRAMEWORKS,
+		frameworks: NOT_REACT_NATIVE_FRAMEWORKS,
 	},
 };
 

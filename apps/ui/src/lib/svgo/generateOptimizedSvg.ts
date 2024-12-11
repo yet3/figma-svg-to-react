@@ -1,5 +1,5 @@
 import { makeDefaultSvgValues, makeDefaultTransformationInfo } from "@lib";
-import { REACT_FRAMEWORKS } from "@shared/lib";
+import { REACT_AND_NATIVE_FRAMEWORKS } from "@shared/lib";
 import type { ISvgOptimizationInfo, ISvgoCtx, ISvgoOpts } from "@shared/types";
 import { optimize } from "svgo";
 import {
@@ -25,7 +25,7 @@ export const generateOptimizedSvg = (opts: ISvgoOpts): IResult => {
 
 	const ctx: ISvgoCtx = {
 		...opts,
-		isReact: REACT_FRAMEWORKS.includes(framework),
+		isReact: REACT_AND_NATIVE_FRAMEWORKS.includes(framework),
 		updateDefaultValues: (val) => {
 			svgDefaultValues = {
 				...svgDefaultValues,

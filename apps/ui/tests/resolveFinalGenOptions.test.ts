@@ -65,7 +65,11 @@ describe("util: resolve final generation options", () => {
 		});
 
 		if (framework !== FrameworkEnum.SVG) {
-			const isForwardRefFalse = framework === FrameworkEnum.SOLID;
+			const isForwardRefFalse = ![
+				FrameworkEnum.REACT18,
+				FrameworkEnum.REACT_NATIVE,
+			].includes(framework);
+
 			test(`[${framework}]: forwardRef should be ${!isForwardRefFalse}`, () => {
 				let genOptions = {
 					...makeDefaultGenOptions(),
