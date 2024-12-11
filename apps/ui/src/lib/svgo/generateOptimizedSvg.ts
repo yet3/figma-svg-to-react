@@ -77,7 +77,7 @@ export const generateOptimizedSvg = (opts: ISvgoOpts): IResult => {
 			toJsx(ctx),
 			// insertPlaceholders should be last
 			insertPlaceholders(ctx),
-		],
+		].filter((plug) => plug),
 	});
 
 	return {
