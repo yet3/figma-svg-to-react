@@ -146,18 +146,12 @@ export const makeJsxComponentGenerator = (
 			if (framework === FrameworkEnum.SOLID) {
 				replacePlaceholder(SVG_PLACEHOLDERS.ATTRS.REF, "ref={props.ref}");
 			} else if (
-				[
-					FrameworkEnum.REACT_NATIVE,
-					FrameworkEnum.REACT,
-				].includes(framework) &&
+				[FrameworkEnum.REACT_NATIVE, FrameworkEnum.REACT].includes(framework) &&
 				!genOptions.useReactLowerThan19
 			) {
 				replacePlaceholder(SVG_PLACEHOLDERS.ATTRS.REF, "ref={props.ref}");
 			} else if (
-				[
-					FrameworkEnum.REACT_NATIVE,
-					FrameworkEnum.REACT,
-				].includes(framework) &&
+				[FrameworkEnum.REACT_NATIVE, FrameworkEnum.REACT].includes(framework) &&
 				genOptions.useReactLowerThan19
 			) {
 				addImport("react", { named: ["forwardRef"] });
