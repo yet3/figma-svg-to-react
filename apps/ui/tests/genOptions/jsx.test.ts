@@ -1,4 +1,3 @@
-import exp from "node:constants";
 import {
 	JSX_FRAMEWORKS,
 	REACT_AND_NATIVE_FRAMEWORKS,
@@ -27,7 +26,14 @@ describe("jsx generation options ", () => {
 			: [opts.framework];
 
 		for (const framework of frameworks) {
-			test(`[${framework}]: ${opts.name}`, async () => {
+			const frame =
+				framework === FrameworkEnum.REACT
+					? opts.genOptions?.useReactLowerThan19
+						? "REACT<19"
+						: "REACT"
+					: framework;
+
+			test(`[${frame}]: ${opts.name}`, async () => {
 				const ctx = await prepareCompTestCtx({
 					svgCode: TEST_SVGS.SIMPLE_RECT,
 					framework,
@@ -68,27 +74,40 @@ describe("jsx generation options ", () => {
 
 	describe("with forwardRef", () => {
 		makeTest({
-			name: "should have forwardRef",
-			framework: [FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE],
-			genOptions: { forwardRef: true },
-			tests: (ctx) => {
-				testJsxImports({
-					code: ctx.component.code,
-					named: ["forwardRef"],
-					from: "react",
-				});
-				expect(ctx.component.code).toContain("forwardRef((_, ref)");
-				expect(ctx.component.code).toContain("ref={ref}");
-			},
-		});
-
-		makeTest({
 			name: "should not have ref",
-			framework: [FrameworkEnum.SOLID, FrameworkEnum.REACT],
+			framework: JSX_FRAMEWORKS,
 			genOptions: { forwardRef: true },
 			tests: (ctx) => {
 				expect(ctx.component.code).not.toContain("ref={props.ref}");
 			},
+		});
+
+		describe("with useReactLowerThan19", () => {
+			makeTest({
+				name: "should have forwardRef",
+				framework: REACT_AND_NATIVE_FRAMEWORKS,
+				genOptions: { forwardRef: true, useReactLowerThan19: true },
+				tests: (ctx) => {
+					testJsxImports({
+						code: ctx.component.code,
+						named: ["forwardRef"],
+						from: "react",
+					});
+					expect(ctx.component.code).toContain("forwardRef((_, ref)");
+					expect(ctx.component.code).toContain("ref={ref}");
+				},
+			});
+		});
+
+		describe("without useReactLowerThan19", () => {
+			makeTest({
+				name: "should not have forwardRef",
+				framework: REACT_AND_NATIVE_FRAMEWORKS,
+				genOptions: { forwardRef: true, useReactLowerThan19: false },
+				tests: (ctx) => {
+					expect(ctx.component.code).not.toContain("forwardRef((_, ref)");
+				},
+			});
 		});
 	});
 
@@ -126,8 +145,8 @@ describe("jsx generation options ", () => {
 			const genOpts: Partial<IGenOptions> = { props: true, forwardRef: true };
 			makeTest({
 				name: "should have forwardRef",
-				framework: [FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE],
-				genOptions: genOpts,
+				framework: REACT_AND_NATIVE_FRAMEWORKS,
+				genOptions: { ...genOpts, useReactLowerThan19: true },
 				tests: (ctx) => {
 					expect(ctx.component.code).toContain("forwardRef((props, ref)");
 				},
@@ -135,7 +154,7 @@ describe("jsx generation options ", () => {
 
 			makeTest({
 				name: "should have ref",
-				framework: [FrameworkEnum.SOLID, FrameworkEnum.REACT],
+				framework: JSX_FRAMEWORKS,
 				genOptions: genOpts,
 				tests: (ctx) => {
 					expect(ctx.component.code).toContain("ref={props.ref}");
@@ -162,8 +181,8 @@ describe("jsx generation options ", () => {
 
 			makeTest({
 				name: "should have forwardRef",
-				framework: [FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE],
-				genOptions: genOpts,
+				framework: REACT_AND_NATIVE_FRAMEWORKS,
+				genOptions: { ...genOpts, useReactLowerThan19: true },
 				tests: (ctx) => {
 					expect(ctx.component.code).toContain(
 						"forwardRef<SVGSVGElement>((_, ref)",
@@ -232,8 +251,8 @@ describe("jsx generation options ", () => {
 		describe("with forwardRef", () => {
 			makeTest({
 				name: "should have forwardRef",
-				framework: FrameworkEnum.REACT18,
-				genOptions: { ...genOpts, forwardRef: true },
+				framework: FrameworkEnum.REACT,
+				genOptions: { ...genOpts, forwardRef: true, useReactLowerThan19: true },
 				tests: (ctx) => {
 					expect(ctx.component.code).toMatch(
 						/forwardRef\s*<\s*SVGSVGElement\s*,\s*SVGProps<SVGSVGElement>\s*>\s*\(\s*\(props,\s*ref\)/gm,
@@ -244,7 +263,7 @@ describe("jsx generation options ", () => {
 			makeTest({
 				name: "should have forwardRef",
 				framework: FrameworkEnum.REACT_NATIVE,
-				genOptions: { ...genOpts, forwardRef: true },
+				genOptions: { ...genOpts, forwardRef: true, useReactLowerThan19: true },
 				tests: (ctx) => {
 					expect(ctx.component.code).toMatch(
 						/forwardRef\s*<\s*SVGSVGElement\s*,\s*SvgProps\s*>\s*\(\s*\(props,\s*ref\)/gm,
@@ -335,8 +354,8 @@ describe("jsx generation options ", () => {
 		describe("with forwardRef", () => {
 			makeTest({
 				name: "props should use IProps",
-				framework: [FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE],
-				genOptions: { ...genOpts, forwardRef: true },
+				framework: REACT_AND_NATIVE_FRAMEWORKS,
+				genOptions: { ...genOpts, forwardRef: true, useReactLowerThan19: true },
 				tests: (ctx) => {
 					expect(ctx.component.code).toMatch(
 						/forwardRef\s*<\s*SVGSVGElement\s*,\sIProps\s*>\s*\(\s*\(props,\s*ref\)/gm,

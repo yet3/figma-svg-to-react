@@ -1,10 +1,8 @@
-import { GEN_OPTIONS_METADATA } from "@shared/lib";
 import {
 	ComponentStatus,
 	type FrameworkEnum,
 	type IComponent,
 	type IGenOptions,
-	type IGenOptionsMetaKeys,
 	type IOriginalSvg,
 } from "@shared/types";
 import { SVG_PLACEHOLDER_PREFIX } from "../consts";

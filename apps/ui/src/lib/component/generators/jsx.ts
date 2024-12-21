@@ -103,7 +103,6 @@ export const makeJsxComponentGenerator = (
 		if (genOptions.typescript) {
 			switch (framework) {
 				case FrameworkEnum.REACT:
-				case FrameworkEnum.REACT18:
 					addImport("react", {
 						named: [{ name: "SVGProps", asType: genOptions.allowImportAsType }],
 					});
@@ -146,10 +145,20 @@ export const makeJsxComponentGenerator = (
 		if (genOptions.forwardRef) {
 			if (framework === FrameworkEnum.SOLID) {
 				replacePlaceholder(SVG_PLACEHOLDERS.ATTRS.REF, "ref={props.ref}");
-			} else if (framework === FrameworkEnum.REACT) {
+			} else if (
+				[
+					FrameworkEnum.REACT_NATIVE,
+					FrameworkEnum.REACT,
+				].includes(framework) &&
+				!genOptions.useReactLowerThan19
+			) {
 				replacePlaceholder(SVG_PLACEHOLDERS.ATTRS.REF, "ref={props.ref}");
 			} else if (
-				[FrameworkEnum.REACT18, FrameworkEnum.REACT_NATIVE].includes(framework)
+				[
+					FrameworkEnum.REACT_NATIVE,
+					FrameworkEnum.REACT,
+				].includes(framework) &&
+				genOptions.useReactLowerThan19
 			) {
 				addImport("react", { named: ["forwardRef"] });
 				afterProp = "";
