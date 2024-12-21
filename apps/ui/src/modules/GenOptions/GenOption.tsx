@@ -7,7 +7,7 @@ import type {
 } from "@shared/types";
 import { BiSolidLeftArrow } from "solid-icons/bi";
 import { FiInfo } from "solid-icons/fi";
-import { type ParentProps, Show, children, createMemo } from "solid-js";
+import { type ParentProps, Show, children } from "solid-js";
 import { useAppCtx } from "src/AppCtx";
 import { GenOptionRequirmentsPopUp } from "./GenOptionRequirmentsPopUp";
 
@@ -77,6 +77,7 @@ export const GenOption = (props: IProps) => {
 						"relative flex items-center": true,
 						"cursor-pointer": !isDisabled(),
 						"group text-gray-400 cursor-not-allowed": isDisabled(),
+						"font-medium": meta().style?.isBold,
 					}}
 				>
 					<Checkbox

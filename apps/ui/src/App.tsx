@@ -25,6 +25,8 @@ import { SaveAllSvgs } from "@modules/SaveAllSvgs";
 import { trackStore } from "@solid-primitives/deep";
 import { AppCtxProvider } from "./AppCtx";
 
+// TODO: splitting React and React Native into separate tabs is nice, but that means that currently it's also split as 2 frameworks, which makes it a bit annoying to test, I should keep it as separate tab but move implementation so it would work as just a genOption for React
+
 export const App = () => {
 	let prevSelectedFramework: FrameworkEnum | null = null;
 	const [selectedFramework, setSelectedFramework] =

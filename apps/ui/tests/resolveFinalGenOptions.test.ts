@@ -65,29 +65,6 @@ describe("util: resolve final generation options", () => {
 		});
 
 		if (framework !== FrameworkEnum.SVG) {
-			const isForwardRefFalse = framework === FrameworkEnum.SOLID;
-			test(`[${framework}]: forwardRef should be ${!isForwardRefFalse}`, () => {
-				let genOptions = {
-					...makeDefaultGenOptions(),
-				};
-				for (const key in genOptions) {
-					genOptions[key] = false;
-				}
-
-				genOptions.props = true;
-				genOptions.spreadProps = true;
-				genOptions.forwardRef = true;
-
-				genOptions = resolveFinalGenOptions({
-					genOptions,
-					framework,
-				});
-
-				expect(genOptions.props).toBe(true);
-				expect(genOptions.spreadProps).toBe(true);
-				expect(genOptions.forwardRef).toBe(!isForwardRefFalse);
-			});
-
 			test(`[${framework}]: Props interface should be false`, () => {
 				let genOptions = {
 					...makeDefaultGenOptions(),
@@ -129,6 +106,118 @@ describe("util: resolve final generation options", () => {
 			});
 		}
 	}
+
+	test(`[${FrameworkEnum.REACT_NATIVE}]: forwardRef should be false`, () => {
+		let genOptions = {
+			...makeDefaultGenOptions(),
+		};
+		for (const key in genOptions) {
+			genOptions[key] = false;
+		}
+
+		genOptions.props = true;
+		genOptions.spreadProps = true;
+		genOptions.forwardRef = true;
+
+		genOptions = resolveFinalGenOptions({
+			genOptions,
+			framework: FrameworkEnum.REACT_NATIVE,
+		});
+
+		expect(genOptions.props).toBe(true);
+		expect(genOptions.spreadProps).toBe(true);
+		expect(genOptions.forwardRef).toBe(false);
+	});
+
+	test(`[${FrameworkEnum.REACT_NATIVE} && REACT<19]: forwardRef should be true`, () => {
+		let genOptions = {
+			...makeDefaultGenOptions(),
+		};
+		for (const key in genOptions) {
+			genOptions[key] = false;
+		}
+
+		genOptions.useReactLowerThan19 = true;
+		genOptions.props = true;
+		genOptions.spreadProps = true;
+		genOptions.forwardRef = true;
+
+		genOptions = resolveFinalGenOptions({
+			genOptions,
+			framework: FrameworkEnum.REACT_NATIVE,
+		});
+
+		expect(genOptions.props).toBe(true);
+		expect(genOptions.spreadProps).toBe(true);
+		expect(genOptions.forwardRef).toBe(true);
+	});
+
+	test("[REACT<19]: forwardRef should be true", () => {
+		let genOptions = {
+			...makeDefaultGenOptions(),
+		};
+		for (const key in genOptions) {
+			genOptions[key] = false;
+		}
+
+		genOptions.useReactLowerThan19 = true;
+		genOptions.props = true;
+		genOptions.spreadProps = true;
+		genOptions.forwardRef = true;
+
+		genOptions = resolveFinalGenOptions({
+			genOptions,
+			framework: FrameworkEnum.REACT,
+		});
+
+		expect(genOptions.props).toBe(true);
+		expect(genOptions.spreadProps).toBe(true);
+		expect(genOptions.forwardRef).toBe(true);
+	});
+
+	test(`[${FrameworkEnum.SOLID}]: forwardRef should be false`, () => {
+		let genOptions = {
+			...makeDefaultGenOptions(),
+		};
+		for (const key in genOptions) {
+			genOptions[key] = false;
+		}
+
+		genOptions.props = true;
+		genOptions.spreadProps = true;
+		genOptions.forwardRef = true;
+
+		genOptions = resolveFinalGenOptions({
+			genOptions,
+			framework: FrameworkEnum.SOLID,
+		});
+
+		expect(genOptions.props).toBe(true);
+		expect(genOptions.spreadProps).toBe(true);
+		expect(genOptions.forwardRef).toBe(false);
+	});
+
+	test(`[${FrameworkEnum.REACT}]: forwardRef should be false`, () => {
+		let genOptions = {
+			...makeDefaultGenOptions(),
+		};
+		for (const key in genOptions) {
+			genOptions[key] = false;
+		}
+
+		genOptions.props = true;
+		genOptions.spreadProps = true;
+		genOptions.forwardRef = true;
+
+		genOptions = resolveFinalGenOptions({
+			genOptions,
+			framework: FrameworkEnum.REACT,
+		});
+
+		expect(genOptions.props).toBe(true);
+		expect(genOptions.spreadProps).toBe(true);
+		expect(genOptions.forwardRef).toBe(false);
+	});
 
 	test(`[${FrameworkEnum.SVG}]: JSX options should be false`, () => {
 		let genOptions = {
