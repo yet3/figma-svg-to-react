@@ -1,4 +1,4 @@
-import { REACT_FRAMEWORKS } from "@shared/lib";
+import { REACT_AND_NATIVE_FRAMEWORKS } from "@shared/lib";
 import { FrameworkEnum } from "@shared/types";
 import { TEST_SVGS } from "tests/lib/consts";
 import { prepareCompTestCtx } from "tests/lib/prepareCompTestCtx";
@@ -28,6 +28,6 @@ describe("import * as React", () => {
 	};
 
 	for (const framework of Object.values(FrameworkEnum)) {
-		testReactImport(framework, REACT_FRAMEWORKS.includes(framework));
+		testReactImport(framework, REACT_AND_NATIVE_FRAMEWORKS.includes(framework));
 	}
 });

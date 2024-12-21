@@ -15,6 +15,10 @@ export type IGenOptionMeta = {
 	defaultValue: boolean;
 	disabledWhen?: IGenOptionMetadisabledWhenFn;
 	frameworks: FrameworkEnum[];
+
+	style?: {
+		isBold?: boolean;
+	};
 };
 
 export interface IGenOptionsMeta {
@@ -40,6 +44,8 @@ export interface IGenOptionsMeta {
 	propsInterface: IGenOptionMeta;
 	allowImportAsType: IGenOptionMeta;
 
+	// React
+	useReactLowerThan19: IGenOptionMeta;
 	importAllAsReact: IGenOptionMeta;
 }
 
