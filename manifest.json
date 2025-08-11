@@ -6,14 +6,10 @@
   "main": "dist/plugin/index.js",
   "ui": "dist/ui/index.html",
   "documentAccess": "dynamic-page",
-  "editorType": [
-    "figma"
-  ],
-  "capabilities": [],
+  "editorType": ["figma", "dev"],
+  "capabilities": ["inspect"],
   "enableProposedApi": false,
   "networkAccess": {
-    "allowedDomains": [
-      "none"
-    ]
+    "allowedDomains": ["none"]
   }
 }
